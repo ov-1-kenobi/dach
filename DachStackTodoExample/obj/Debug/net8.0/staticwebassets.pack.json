@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\assets\\dachlogo.png",
+      "PackagePath": "staticwebassets\\assets\\dachlogo.png"
+    },
+    {
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\tailwind.css",
+      "PackagePath": "staticwebassets\\css\\tailwind.css"
+    },
+    {
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\lib\\htmx.min.js",
+      "PackagePath": "staticwebassets\\lib\\htmx.min.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DachStackTodoExample.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.DachStackTodoExample.props",
+      "PackagePath": "build\\DachStackTodoExample.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DachStackTodoExample.props",
+      "PackagePath": "buildMultiTargeting\\DachStackTodoExample.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.DachStackTodoExample.props",
+      "PackagePath": "buildTransitive\\DachStackTodoExample.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
