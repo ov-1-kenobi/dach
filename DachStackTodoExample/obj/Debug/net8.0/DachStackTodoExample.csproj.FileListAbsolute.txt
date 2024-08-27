@@ -103,3 +103,4 @@ d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\refint\DachStackTodoExamp
 d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\DachStackTodoExample.pdb
 d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\DachStackTodoExample.genruntimeconfig.cache
 d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\ref\DachStackTodoExample.dll
+D:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\DachStackTodoExample.sourcelink.json

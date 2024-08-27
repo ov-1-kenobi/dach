@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dGXkafpg+xBTANisOea3acEV5S8bR1iIH2R9xxXZ94k=",
+  "Hash": "hYRfEL92J57q0nqBNeXYVR0mh+jfGI9J3IeNQRlorTA=",
   "Source": "DachStackTodoExample",
   "BasePath": "_content/DachStackTodoExample",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "DachStackTodoExample\\wwwroot",
       "Source": "DachStackTodoExample",
-      "ContentRoot": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
       "BasePath": "_content/DachStackTodoExample",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\assets\\dachlogo.png",
+      "Identity": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\assets\\dachlogo.png",
       "SourceId": "DachStackTodoExample",
       "SourceType": "Discovered",
-      "ContentRoot": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
       "BasePath": "_content/DachStackTodoExample",
       "RelativePath": "assets/dachlogo.png",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\dachlogo.png"
     },
     {
-      "Identity": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\site.css",
+      "Identity": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\site.css",
       "SourceId": "DachStackTodoExample",
       "SourceType": "Discovered",
-      "ContentRoot": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
       "BasePath": "_content/DachStackTodoExample",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\tailwind.css",
+      "Identity": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\tailwind.css",
       "SourceId": "DachStackTodoExample",
       "SourceType": "Discovered",
-      "ContentRoot": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
       "BasePath": "_content/DachStackTodoExample",
       "RelativePath": "css/tailwind.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\tailwind.css"
     },
     {
-      "Identity": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\index.html",
+      "Identity": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\index.html",
       "SourceId": "DachStackTodoExample",
       "SourceType": "Discovered",
-      "ContentRoot": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
       "BasePath": "_content/DachStackTodoExample",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\lib\\htmx.min.js",
+      "Identity": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\lib\\htmx.min.js",
       "SourceId": "DachStackTodoExample",
       "SourceType": "Discovered",
-      "ContentRoot": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\",
       "BasePath": "_content/DachStackTodoExample",
       "RelativePath": "lib/htmx.min.js",
       "AssetKind": "All",
