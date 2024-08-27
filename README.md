@@ -26,7 +26,7 @@ Ensure you have the following installed:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/dach-stack-template.git
+   git clone https://github.com/ov-1-kenobi/dach.git
    cd dach-stack-template
    ```
 
@@ -49,7 +49,7 @@ Ensure you have the following installed:
    dotnet run
    ```
 
-   The application will be available at `https://localhost:5001`.
+   The application will be available at `https://localhost:5263`.
 
 ### Securing the API with JWT and Azure AD
 
