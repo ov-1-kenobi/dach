@@ -1,0 +1,60 @@
+2024-08-28T20:17:20.172Z 	 info: Azurite Blob service is starting on 127.0.0.1:10000
+2024-08-28T20:17:20.175Z 	 info: AccountDataStore:init() Refresh accounts from environment variable AZURITE_ACCOUNTS with value undefined
+2024-08-28T20:17:20.175Z 	 info: AccountDataStore:init() Fallback to default emulator account devstoreaccount1.
+2024-08-28T20:17:20.205Z 	 info: BlobGCManager:start() Starting BlobGCManager. Set status to Initializing.
+2024-08-28T20:17:20.205Z 	 info: BlobGCManager:start() Trigger mark and sweep loop. Set status to Running.
+2024-08-28T20:17:20.205Z 	 info: BlobGCManager:markSweepLoop() Start next mark and sweep.
+2024-08-28T20:17:20.205Z 	 info: BlobGCManager:markSweep() Get all extents.
+2024-08-28T20:17:20.206Z 	 info: BlobGCManager:start() BlobGCManager successfully started.
+2024-08-28T20:17:20.217Z 	 info: BlobGCManager:markSweep() Got 0 extents.
+2024-08-28T20:17:20.217Z 	 info: BlobGCManager:markSweep() Get referred extents.
+2024-08-28T20:17:20.218Z 	 info: BlobGCManager:markSweep() Got referred extents, unreferenced extents count is 0.
+2024-08-28T20:17:20.218Z 	 info: BlobGCManager:markSweepLoop() Mark and sweep finished, taken 13ms.
+2024-08-28T20:17:20.218Z 	 info: BlobGCManager:markSweepLoop() Sleep for 600000ms.
+2024-08-28T20:17:20.220Z 	 info: Azurite Blob service successfully listens on http://127.0.0.1:10000
+2024-08-28T20:17:20.221Z 	 info: Azurite Queue service is starting on 127.0.0.1:10001
+2024-08-28T20:17:20.221Z 	 info: AccountDataStore:init() Refresh accounts from environment variable AZURITE_ACCOUNTS with value undefined
+2024-08-28T20:17:20.221Z 	 info: AccountDataStore:init() Fallback to default emulator account devstoreaccount1.
+2024-08-28T20:17:20.254Z 	 info: QueueGCManager:start() Starting QueueGCManager, set status to Initializing
+2024-08-28T20:17:20.254Z 	 info: QueueGCManager:start() Trigger mark and sweep loop, set status to Running.
+2024-08-28T20:17:20.255Z 	 info: QueueGCManager:markSweepLoop() Start new mark and sweep.
+2024-08-28T20:17:20.255Z 	 info: QueueGCManger:markSweep() Get all extents.
+2024-08-28T20:17:20.255Z 	 info: QueueGCManager:start() QueueGCManager successfully started.
+2024-08-28T20:17:20.256Z 	 info: QueueGCManager:marksweep() Get 0 extents.
+2024-08-28T20:17:20.256Z 	 info: QueueGCManager:markSweep() Get referred extents, then remove from allExtents.
+2024-08-28T20:17:20.256Z 	 info: QueueGCManager:markSweep() Got referred extents, unreferenced extents count is 0.
+2024-08-28T20:17:20.256Z 	 info: QueueGCManager:markSweepLoop() Mark and sweep finished, take 1ms.
+2024-08-28T20:17:20.256Z 	 info: QueueGCManager:markSweepLoop() Sleep for 60000
+2024-08-28T20:17:20.258Z 	 info: Azurite Queue service successfully listens on http://127.0.0.1:10001
+2024-08-28T20:17:20.260Z 	 info: Azurite Table service is starting on 127.0.0.1:10002
+2024-08-28T20:17:20.260Z 	 info: AccountDataStore:init() Refresh accounts from environment variable AZURITE_ACCOUNTS with value undefined
+2024-08-28T20:17:20.260Z 	 info: AccountDataStore:init() Fallback to default emulator account devstoreaccount1.
+2024-08-28T20:17:20.269Z 	 info: Azurite Table service successfully listens on http://127.0.0.1:10002
+2024-08-28T20:17:20.882Z a6e58aec-2430-4957-9166-090edb92acb6 info: TableStorageContextMiddleware: RequestMethod=GET RequestURL=http://127.0.0.1/devstoreaccount1/Tables?$top=50 RequestHeaders:{"accept":"application/json;odata=minimalmetadata","x-ms-version":"2019-02-02","dataserviceversion":"3.0","accept-encoding":"gzip,deflate","user-agent":"azsdk-js-data-tables/13.1.2 core-rest-pipeline/1.11.0 Node/v20.14.0 OS/(x64-Windows_NT-10.0.19045)","x-ms-client-request-id":"a1b7e38b-e403-4b69-80d5-b3e2ed2a6be2","x-ms-date":"Wed, 28 Aug 2024 20:17:20 GMT","authorization":"SharedKeyLite devstoreaccount1:kspIbivnKrP73n9KVQz76wrseMMRGXrtEDwDMuy7Aqs=","host":"127.0.0.1:10002","connection":"close"} ClientIP=127.0.0.1 Protocol=http HTTPVersion=1.1
+2024-08-28T20:17:20.882Z a6e58aec-2430-4957-9166-090edb92acb6 debug: tableStorageContextMiddleware: Dispatch pattern string: /Tables
+2024-08-28T20:17:20.882Z a6e58aec-2430-4957-9166-090edb92acb6 info: tableStorageContextMiddleware: Account=devstoreaccount1 tableName=undefined
+2024-08-28T20:17:20.882Z a6e58aec-2430-4957-9166-090edb92acb6 verbose: DispatchMiddleware: Dispatching request...
+2024-08-28T20:17:20.884Z a6e58aec-2430-4957-9166-090edb92acb6 info: DispatchMiddleware: Operation=Table_Query
+2024-08-28T20:17:20.884Z a6e58aec-2430-4957-9166-090edb92acb6 verbose: AuthenticationMiddlewareFactory:createAuthenticationMiddleware() Validating authentications.
+2024-08-28T20:17:20.884Z a6e58aec-2430-4957-9166-090edb92acb6 info: TableSharedKeyLiteAuthenticator:validate() Start validation against account shared key authentication.
+2024-08-28T20:17:20.885Z a6e58aec-2430-4957-9166-090edb92acb6 info: TableSharedKeyLiteAuthenticator:validate() [STRING TO SIGN]:"Wed, 28 Aug 2024 20:17:20 GMT\n/devstoreaccount1/devstoreaccount1/Tables"
+2024-08-28T20:17:20.886Z a6e58aec-2430-4957-9166-090edb92acb6 info: TableSharedKeyLiteAuthenticator:validate() Calculated authentication header based on key1: SharedKeyLite devstoreaccount1:kspIbivnKrP73n9KVQz76wrseMMRGXrtEDwDMuy7Aqs=
+2024-08-28T20:17:20.886Z a6e58aec-2430-4957-9166-090edb92acb6 info: TableSharedKeyLiteAuthenticator:validate() Signature 1 matched.
+2024-08-28T20:17:20.887Z a6e58aec-2430-4957-9166-090edb92acb6 verbose: DeserializerMiddleware: Start deserializing...
+2024-08-28T20:17:20.889Z a6e58aec-2430-4957-9166-090edb92acb6 info: HandlerMiddleware: DeserializedParameters={"options":{"queryOptions":{"top":50},"requestId":"a1b7e38b-e403-4b69-80d5-b3e2ed2a6be2","dataServiceVersion":"3.0"},"version":"2019-02-02"}
+2024-08-28T20:17:20.890Z a6e58aec-2430-4957-9166-090edb92acb6 verbose: SerializerMiddleware: Start serializing...
+2024-08-28T20:17:20.892Z a6e58aec-2430-4957-9166-090edb92acb6 debug: Serializer: Raw response body string is {"odata.metadata":"http://127.0.0.1:10002/devstoreaccount1/$metadata#Tables","value":[]}
+2024-08-28T20:17:20.892Z a6e58aec-2430-4957-9166-090edb92acb6 info: Serializer: Start returning stream body.
+2024-08-28T20:17:20.892Z a6e58aec-2430-4957-9166-090edb92acb6 info: EndMiddleware: End response. TotalTimeInMS=11 StatusCode=200 StatusMessage=OK Headers={"server":"Azurite-Table/3.32.0","content-type":"application/json;odata=minimalmetadata","x-ms-client-request-id":"a1b7e38b-e403-4b69-80d5-b3e2ed2a6be2","x-ms-request-id":"a6e58aec-2430-4957-9166-090edb92acb6","x-ms-version":"2024-11-04","date":"Wed, 28 Aug 2024 20:17:20 GMT"}
+2024-08-28T20:17:36.103Z 	 info: Azurite Blob service is closing...
+2024-08-28T20:17:36.103Z 	 info: Azurite Queue service is closing...
+2024-08-28T20:17:36.104Z 	 info: Azurite Table service is closing...
+2024-08-28T20:17:36.104Z 	 info: BlobGCManager:close() Start closing BlobGCManager. Set status to Closing.
+2024-08-28T20:17:36.104Z 	 info: QueueGCManager:close() Start closing QueueGCManager, set status to Closing.
+2024-08-28T20:17:36.105Z 	 info: BlobGCManager:start() Mark and sweep loop is closed.
+2024-08-28T20:17:36.105Z 	 info: BlobGCManager:close() BlobGCManager successfully closed. Set status to Closed.
+2024-08-28T20:17:36.105Z 	 info: QueueGCManager:start() Mark and sweep loop is closed.
+2024-08-28T20:17:36.105Z 	 info: QueueGCManager:close() QueueGCManager successfully closed, set status to Closed.
+2024-08-28T20:17:36.105Z 	 info: Azurite Table service successfully closed
+2024-08-28T20:17:36.106Z 	 info: Azurite Blob service successfully closed
+2024-08-28T20:17:36.106Z 	 info: Azurite Queue service successfully closed
