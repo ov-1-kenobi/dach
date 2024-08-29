@@ -2,8 +2,9 @@
 
 # Dach (noun) [neuter]
 - ### Pronunciation: /dock/ (dahkh)
-- **Dach** (English 'roof') - A structure that covers the top of a building and provides protection from the elements.
-- **Dach** (English 'roof') - A part of a vehicle that covers the interior space.
+- #### (English 'roof')
+- **Dach** - A structure that covers the top of a building and provides protection from the elements.
+- **Dach** - A part of a vehicle that covers the interior space.
 
 # DACH Stack Project Template
 
