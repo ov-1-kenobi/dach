@@ -104,3 +104,8 @@ d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\DachStackTodoExample.pdb
 d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\DachStackTodoExample.genruntimeconfig.cache
 d:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\ref\DachStackTodoExample.dll
 D:\Projects\DACH\DachStackTodoExample\obj\Debug\net8.0\DachStackTodoExample.sourcelink.json
+d:\Projects\DACH\DachStackTodoExample\bin\Debug\net8.0\azurite\data\__azurite_db_blob_extent__.json
+d:\Projects\DACH\DachStackTodoExample\bin\Debug\net8.0\azurite\data\__azurite_db_blob__.json
+d:\Projects\DACH\DachStackTodoExample\bin\Debug\net8.0\azurite\data\__azurite_db_queue_extent__.json
+d:\Projects\DACH\DachStackTodoExample\bin\Debug\net8.0\azurite\data\__azurite_db_queue__.json
+d:\Projects\DACH\DachStackTodoExample\bin\Debug\net8.0\azurite\data\__azurite_db_table__.json

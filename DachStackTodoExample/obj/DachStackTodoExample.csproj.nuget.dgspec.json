@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj": {}
+    "d:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj": {
+    "d:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj",
+        "projectUniqueName": "d:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj",
         "projectName": "DachStackTodoExample",
-        "projectPath": "D:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj",
+        "projectPath": "d:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj",
         "packagesPath": "C:\\Users\\ov_1_\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\DACH\\DachStackTodoExample\\obj\\",
+        "outputPath": "d:\\Projects\\DACH\\DachStackTodoExample\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\assets\\dachlogo.png",
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\assets\\dachlogo.png",
       "PackagePath": "staticwebassets\\assets\\dachlogo.png"
     },
     {
-      "Id": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\site.css",
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\tailwind.css",
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\css\\tailwind.css",
       "PackagePath": "staticwebassets\\css\\tailwind.css"
     },
     {
-      "Id": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\index.html",
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "D:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\lib\\htmx.min.js",
+      "Id": "d:\\Projects\\DACH\\DachStackTodoExample\\wwwroot\\lib\\htmx.min.js",
       "PackagePath": "staticwebassets\\lib\\htmx.min.js"
     },
     {

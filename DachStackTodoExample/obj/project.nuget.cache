@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7jiiO1IS6Xs=",
+  "dgSpecHash": "jiL2ADpGI3Y=",
   "success": true,
-  "projectFilePath": "D:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj",
+  "projectFilePath": "d:\\Projects\\DACH\\DachStackTodoExample\\DachStackTodoExample.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ov_1_\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.7\\microsoft.aspnetcore.openapi.8.0.7.nupkg.sha512",
     "C:\\Users\\ov_1_\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
