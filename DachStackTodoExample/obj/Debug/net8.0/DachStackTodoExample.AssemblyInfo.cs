@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DachStackTodoExample")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a2beac63f7b21252fb6352794e255ffa90d35d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7abef6b43d8f3a93d0f6f21a2f715381371295f")]
 [assembly: System.Reflection.AssemblyProductAttribute("DachStackTodoExample")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DachStackTodoExample")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
