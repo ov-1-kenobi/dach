@@ -4,8 +4,8 @@
 #### (English 'roof')
 ### Pronunciation: /dock/ (dahkh)
 
-- **Dach** - A structure that covers the top of a building and provides protection from the elements.
-- **Dach** - A part of a vehicle that covers the interior space.
+- A structure that covers the top of a building and provides protection from the elements.
+- A part of a vehicle that covers the interior space.
 
 # DACH Stack Project Template
 
