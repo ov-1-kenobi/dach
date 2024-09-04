@@ -19,11 +19,11 @@
     </figure>
     <div class="container mx-auto">
         <h1 class="text-3xl font-bold mb-5">To-Do List</h1>
-        <form id="addForm" hx-post="/api/todo" hx-swap="beforeend" hx-target="#todo-list" hx-headers='{"Content-Type": "text/html"}'>
+        <form id="addForm" hx-post="/api/todo" hx-swap="innerHTML" hx-target="#todo-list" hx-headers='{"Content-Type": "text/html"}'>
             <input type="text" name="Task" class="input input-bordered w-full max-w-xs" placeholder="Add new task" required>
             <button type="submit" class="btn btn-primary mt-2">Add Task</button>
         </form>
-        <ul id="todo-list" class="mt-5 space-y-2">
+        <ul id="todo-list" hx-get="api/todo" hx-trigger="load" class="mt-5 space-y-2">
             <!-- To-Do items will be inserted here -->
         </ul>
     </div>
@@ -31,6 +31,11 @@
 </html>
 <script>
     document.addEventListener('htmx:afterRequest', function(evt){
+        console.log("afterRequest:" + evt);
+        console.log(evt);
+    });
+    document.addEventListener('htmx:load', function(evt){
+        console.log("load:" + evt);
         console.log(evt);
     });
 </script>
