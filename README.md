@@ -15,18 +15,6 @@ Save all the JavaScript for where it really counts, anywhere stuff doesn't work 
 ## Current Status
 I am currently working on expanding the example todo application and adding more small example apps to demonstrate full stack scenarios including (file uploads, api's, security).
 
-## Roadmap
-~~- **Milestone 0:POC**: Todo app proof of concept.  (Aug. 2024)-(05 Sept. 2024)~~
-- **Milestone 1:FullStack**: Complete, fullstack operations on local development environment using Azurite. Add 2 projects [fileUpload], [fileReader].
-   - ***fileUpload*** a simple file uploader that uploads to the local azurite blob service.  (Sept. 2024)
-   - ***fileReader*** a simple file "browser". display a list of the uploaded files, clicking on a file brings up a viewer modal (Sept. 2024)
-   - ***Todo*** update the todo app, save values into an Azurite table service table. (Sept. 2024)
-- **Milestone 2:DevOps**: Bicep and csharp script plugged in to allow full control of resources via bicep files in dev (with .csx file helpers) and dotnet cli deployment. Fullstack deployed to Azure cloud service account with setup instructions for standing up an Azure subscription and resources and where to place the configuration secrets/ids (Oct. 2024)
-- **Milestone 3:DachWorkers**: Built-in utility/service for engaging with web workers to enable crisper/faster UI/X interactions and responses. Build ways to do batch file uploads and firing/managing multiple tasks/requests at the same time. (Dec. 2024)
-- **Milestone 4:Security**: Yes, I've dealt with and built in some security, now let's deal with it as a feature. Work on examples to allow using google, facebook, microsoft authentications therefore allowing users to leverage their current authentication providers (Jan. 2025)
-- **Milestone 5a:=>AWS POC<=**: Complete, fullstack operations on local development environment using AWS LocalStack. (Mar. 2025)
-- **Milestone 5b:=>AWS DevOps<=**: Deploy code and resources for environments in AWS (Jun. 2025)
-
 # DACH Stack Project Template
 
 Welcome to the DACH Stack project template! This repository provides a starter template for building modern web applications using the **DACH Stack**:
@@ -167,6 +155,18 @@ Refer to the Bicep section for deploying resources to Azure, including setting u
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
+
+## Roadmap
+~~- **Milestone 0:POC**: Todo app proof of concept.  (Aug. 2024)-(05 Sept. 2024)~~
+- **Milestone 1:FullStack**: Complete, fullstack operations on local development environment using Azurite. Add 2 projects [fileUpload], [fileReader].
+   - ***fileUpload*** a simple file uploader that uploads to the local azurite blob service.  (Sept. 2024)
+   - ***fileReader*** a simple file "browser". display a list of the uploaded files, clicking on a file brings up a viewer modal (Sept. 2024)
+   - ***Todo*** update the todo app, save values into an Azurite table service table. (Sept. 2024)
+- **Milestone 2:DevOps**: Bicep and csharp script plugged in to allow full control of resources via bicep files in dev (with .csx file helpers) and dotnet cli deployment. Fullstack deployed to Azure cloud service account with setup instructions for standing up an Azure subscription and resources and where to place the configuration secrets/ids (Oct. 2024)
+- **Milestone 3:DachWorkers**: Built-in utility/service for engaging with web workers to enable crisper/faster UI/X interactions and responses. Build ways to do batch file uploads and firing/managing multiple tasks/requests at the same time. (Dec. 2024)
+- **Milestone 4:Security**: Work on examples to allow using google, facebook, microsoft authentications therefore allowing users to leverage their current authentication providers (Jan. 2025)
+- **Milestone 5a:=>AWS POC<=**: Complete, fullstack operations on local development environment using AWS LocalStack. (Mar. 2025)
+- **Milestone 5b:=>AWS DevOps<=**: Deploy code and resources for environments in AWS (Jun. 2025)
 
 ## License
 
