@@ -7,3 +7,5 @@ obj/
 
 #projects
 /DachStackTodoExample/bin
+/DachStackTodoExample/node_modules
+/DachStackTodoExample/obj
