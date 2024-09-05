@@ -16,7 +16,7 @@ Save all the JavaScript for where it really counts, anywhere stuff doesn't work 
 I am currently working on expanding the example todo application and adding more small example apps to demonstrate full stack scenarios including (file uploads, api's, security).
 
 ## Roadmap
-- **Milestone 0:POC**: Todo app proof of concept. (Aug. 2024)-(05 Sept. 2024)~~
+~~- **Milestone 0:POC**: Todo app proof of concept. (Aug. 2024)-(05 Sept. 2024)~~
 - **Milestone 1:FullStack**: Complete, fullstack operations on local development environment using Azurite. Add 2 projects [fileUpload], [fileReader].
    - ***fileUpload*** a simple file uploader that uploads to the local azurite blob service.  (Sept. 2024)
    - ***fileReader*** a simple file "browser". display a list of the uploaded files, clicking on a file brings up a viewer modal (Sept. 2024)
