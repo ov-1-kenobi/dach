@@ -7,6 +7,11 @@
 - A structure that covers the top of a building and provides protection from the elements.
 - A part of a vehicle that covers the interior space.
 
+# DACH Stack Idea
+A lite weight collection of technologies that gets out of the way and lets you decide how much JavaScript you need. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made styles and themes, then deploy to Azure. 
+
+Save all the JavaScript for where it really counts, anywhere stuff doesn't work the way it's supposed to, out of the box, but tldr the documentation
+
 # DACH Stack Project Template
 
 Welcome to the DACH Stack project template! This repository provides a starter template for building modern web applications using the **DACH Stack**:
