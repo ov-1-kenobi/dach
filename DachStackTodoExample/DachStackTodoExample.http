@@ -1,6 +1,0 @@
-@DachStackTodoExample_HostAddress = http://localhost:5263
-
-GET {{DachStackTodoExample_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
