@@ -1,1 +1,9 @@
+# Node.js
+node_modules/
+
+# .Net
+bin/
+obj/
+
+#projects
 /DachStackTodoExample/bin
