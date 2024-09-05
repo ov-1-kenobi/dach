@@ -1,0 +1,20 @@
+{
+  "watch": {
+    "css": "src/**/*.css",
+    "html": "src/**/*.html"
+  },
+  "scripts": {
+    "postinstall": "node create-dirs && copy node_modules\\htmx.org\\dist\\htmx.min.js wwwroot\\lib\\",
+    "build:css": "npx tailwindcss -i wwwroot\\css\\site.css -o wwwroot\\css\\tailwind.css",
+    "start:azurite": "azurite --silent --location azurite\\data --debug azurite\\debug.log",
+    "watch:files": "npm-watch css && npm-watch html"
+  },
+  "dependencies": {
+    "daisyui": "^4.12.10",
+    "htmx.org": "^1.9.12",
+    "tailwindcss": "^3.4.10"
+  },
+  "devDependencies": {
+    "npm-watch": "^0.13.0"
+  }
+}
