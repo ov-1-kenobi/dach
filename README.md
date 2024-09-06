@@ -10,8 +10,6 @@
 # DACH Stack Overview
 A lightweight collection of technologies that gets out of the way and lets you decide how much JavaScript you need. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli
 
-Save all the JavaScript for where it really counts: anywhere stuff doesn't work the way it's supposed to, out of the box; and tldr the documentation
-
 ## Current Status
 I am currently working on expanding the example todo application and adding more small example apps to demonstrate full stack scenarios including (file uploads, api's, security).
 
