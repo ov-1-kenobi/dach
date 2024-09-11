@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DachStackApp.api
 {
-    public class ToDoItem
+    public class FileItem
     {
         public int Id { get; set; }
         public required string Task { get; set; }
@@ -13,9 +13,9 @@ namespace DachStackApp.api
     }
     [ApiController]
     [Route("api/todo")]
-    public class ToDoController : ControllerBase
+    public class FileController : ControllerBase
     {
-        private static List<ToDoItem> _items = new List<ToDoItem>();
+        private static List<FileItem> _items = new List<FileItem>();
 
         [HttpGet]
         public IActionResult GetItems() 
@@ -29,7 +29,7 @@ namespace DachStackApp.api
         }
 
         [HttpPost]
-        public IActionResult AddItem([FromForm]ToDoItem item)
+        public IActionResult AddItem([FromForm]FileItem item)
         {
             item.Id = _items.Count + 1;
             _items.Add(item);
@@ -55,7 +55,7 @@ namespace DachStackApp.api
         }
 
         [HttpPatch("{id}")]
-        public IActionResult UpdateItem(int id, ToDoItem updatedItem)
+        public IActionResult UpdateItem(int id, FileItem updatedItem)
         {
             var item = _items.FirstOrDefault(x => x.Id == id);
             if (item == null) return NotFound();
