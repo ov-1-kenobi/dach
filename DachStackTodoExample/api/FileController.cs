@@ -12,7 +12,7 @@ namespace DachStackApp.api
         public bool IsComplete { get; set; }
     }
     [ApiController]
-    [Route("api/todo")]
+    [Route("api/file")]
     public class FileController : ControllerBase
     {
         private static List<FileItem> _items = new List<FileItem>();
