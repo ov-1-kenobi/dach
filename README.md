@@ -8,7 +8,17 @@
 - A part of a vehicle that covers the interior space.
 
 # DACH Stack Overview
-A lightweight collection of technologies that gets out of the way and lets you decide how much JavaScript you need. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli
+A lightweight collection of technologies that celebrates simplicity. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli.
+
+The purpose is to remove as many dependencies as possible and deliver the same, or better, experience without the overhead of dealing with boiler plate from other js frameworks like React.
+
+I feel HTMX delivers in concept and want to take a deep dive through it's features. As well, Azurite offers a compelling, easy to setup and manage local host that mocks the Azure services you need for developing complete solutions. This combination along with Daisy + Tailwind css, offers a full, rich set of stack features for developing a lot of common small to medium size solutions, I believe. 
+
+I plan to prove whether this is the case by developing some standard examples, and then later getting into some performance testing and maybe comparing by developing a "clone" of these apps in React. My hypothesis is that DACH will produce easier to read, maintain and implement code than say maybe React.
+
+I feel that by having clear separation of concerns between each technology, we can mitigate a lot of uneccessary reproduction of state and logic. I'm probably wrong, but you never know and I've never done one of these things before, so we're already learning. If you would like to follow along or would like to contribute, please feel free to do so.
+
+Thank you for your time
 
 ## Current Status
 I am currently working on expanding the example todo application and adding more small example apps to demonstrate full stack scenarios including (file uploads, api's, security).
