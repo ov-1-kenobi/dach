@@ -22,7 +22,7 @@ Thank you for your time
 I am currently working on expanding the example todo application, as well as other apps to demonstrate full stack scenarios including (file uploads, api's, security).
 - **Todo List**
 - **Image Upload**
-- **
+- **Image Viewer**
 
 # DACH Stack Project Template
 
