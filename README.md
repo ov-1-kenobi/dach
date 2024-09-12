@@ -10,18 +10,19 @@
 # DACH Stack Overview
 A lightweight collection of technologies that celebrates simplicity. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli.
 
-The purpose is to remove as many dependencies as possible and deliver the same, or better, experience without the overhead like of js frameworks like React.
+The purpose is to remove as many dependencies as possible and deliver the same, or better, experience without the overhead of js frameworks like React running through local services like docker, node, et al which require their own specific domain knowledge, usually in extreme situations and always at the worst time. Another goal is to remove the reliance on dedicating to a specific db technology and allow the system to dictate/inform which db technologies to use during development. Most, if not all types, are presumed to be provided by Azurite.
 
-I feel HTMX delivers in concept and want to take a deep dive through it's features. As well, Azurite offers a compelling, easy to setup and manage local host that mocks the Azure services you need for developing complete solutions. This combination along with Daisy + Tailwind css, offers a full, rich set of stack features for developing a lot of common small to medium size solutions, I believe. 
+Maybe HTMX helps to deliver with some of these concepts by giving simple wiring for my DOM interactions, I want to take a deep dive through it's features and find out. Azurite offers a compelling, easy to setup and manage local host that mocks the Azure services you need for developing complete solutions without requiring a large footprint of services and ecosystems to get running. Daisy + Tailwind css gives access to a nice set of extensible UI tools and theming built in. All of these together should offer a full, rich set of stack features enabling developers to proceed at full speed, without feeling locked in and having to make concessions due to rigidity of stack options
 
-I plan to prove whether this is the case by developing some standard examples, and then later getting into some performance testing and maybe comparing by developing a "clone" of these apps in React. My hypothesis is that DACH will produce easier to read, maintain and implement code than say maybe React.
-
-I feel that by having clear separation of concerns between each technology, we can mitigate a lot of uneccessary reproduction of state and logic. I'm probably wrong, but you never know and I've never done one of these things before, so we're already learning. If you would like to follow along or would like to contribute, please feel free to do so.
+I'm also hoping to mitigate a lot of uneccessary reproduction of state and logic while delivering an easy, straightforward development experience. I'm probably wrong, but I've never done one of these things before, so we're already learning. If you would like to follow along or would like to contribute, please feel free to do so.
 
 Thank you for your time
 
 ## Current Status
-I am currently working on expanding the example todo application and adding more small example apps to demonstrate full stack scenarios including (file uploads, api's, security).
+I am currently working on expanding the example todo application, as well as other apps to demonstrate full stack scenarios including (file uploads, api's, security).
+- **Todo List**
+- **Image Upload**
+- **
 
 # DACH Stack Project Template
 
