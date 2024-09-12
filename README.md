@@ -10,7 +10,7 @@
 # DACH Stack Overview
 A lightweight collection of technologies that celebrates simplicity. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli.
 
-The purpose is to remove as many dependencies as possible and deliver the same, or better, experience without the overhead of dealing with boiler plate from other js frameworks like React.
+The purpose is to remove as many dependencies as possible and deliver the same, or better, experience without the overhead like of js frameworks like React.
 
 I feel HTMX delivers in concept and want to take a deep dive through it's features. As well, Azurite offers a compelling, easy to setup and manage local host that mocks the Azure services you need for developing complete solutions. This combination along with Daisy + Tailwind css, offers a full, rich set of stack features for developing a lot of common small to medium size solutions, I believe. 
 
