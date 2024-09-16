@@ -1,3 +1,6 @@
+using Azure.Storage;
+using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -5,67 +8,86 @@ using System.Linq;
 
 namespace DachStackApp.api
 {
-    public class FileItem
-    {
-        public int Id { get; set; }
-        public required string Task { get; set; }
-        public bool IsComplete { get; set; }
-    }
     [ApiController]
     [Route("api/file")]
-    public class FileController : ControllerBase
+    public class UploadController : ControllerBase
     {
-        private static List<FileItem> _items = new List<FileItem>();
+        private readonly IConfiguration _configuration;
+        private readonly BlobServiceClient _blobServiceClient;
 
-        [HttpGet]
-        public IActionResult GetItems() 
-        { 
-            var retHTML = $"";
-            foreach(var item in _items)
-            {
-                retHTML += $"<li id='todo-{item.Id}' class='flex items-center justify-between bg-white p-3 rounded shadow'><span>{item.Task}</span><div><button hx-delete='/api/todo/{item.Id}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button><button hx-target='closest li' hx-swap='outerHTML' hx-patch='/api/todo/{item.Id}' hx-vals='{{\"IsComplete\":true}}' class='btn btn-success btn-xs'>Complete</button></div></li>";
-            }
-            return Ok(retHTML);
+        public UploadController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _blobServiceClient = new BlobServiceClient(_configuration["AzureBlobStorageConnectionString"]);
         }
 
-        [HttpPost]
-        public IActionResult AddItem([FromForm]FileItem item)
+        [HttpGet("get-presigned-url")]
+        public IActionResult GetPresignedUrl(string filename)
         {
-            item.Id = _items.Count + 1;
-            _items.Add(item);
-            var retHTML = $"<li id='todo-{item.Id}' class='flex items-center justify-between bg-white p-3 rounded shadow'><span>{item.Task}</span><div><button hx-delete='/api/todo/{item.Id}' hx-target='#todo-{item.Id}' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button><button hx-patch='/api/todo/{item.Id}' hx-vals='{{\"IsComplete\":true}}' class='btn btn-success btn-xs'>Complete</button></div></li>";
-            if (Request.Headers["Accept"].ToString().Contains("*/*"))
-            {
-                return GetItems();
-                //return Content(retHTML, "text/html");
-            }
-            else
-            {
-                return new JsonResult(new { Success = true, Html = retHTML });
-            }
+            var containerClient = _blobServiceClient.GetBlobContainerClient("your-container-name");
+            var blobClient = containerClient.GetBlobClient(filename);
+
+            var sasUri = blobClient.GenerateSasUri(BlobSasPermissions.Write, DateTimeOffset.UtcNow.AddMinutes(15));
+
+            return Ok(new { url = sasUri.ToString() });
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteItem(int id)
+        [HttpGet("get-presigned-url-for-block")]
+        public IActionResult GetPresignedUrlForBlock(string filename, string blockid)
         {
-            var item = _items.FirstOrDefault(x => x.Id == id);
-            if (item == null) return NotFound();
-            _items.Remove(item);
-            return Ok();
+            var containerClient = _blobServiceClient.GetBlobContainerClient("your-container-name");
+            var blobClient = containerClient.GetBlobClient(filename);
+
+            var sasBuilder = new BlobSasBuilder
+            {
+                BlobContainerName = containerClient.Name,
+                BlobName = blobClient.Name,
+                Resource = "b",
+                StartsOn = DateTimeOffset.UtcNow.AddMinutes(-5),
+                ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(15),
+            };
+            sasBuilder.SetPermissions(BlobSasPermissions.Write);
+
+            var sasToken = sasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(_configuration["AzureAccountName"], _configuration["AzureAccountKey"]));
+
+            var uriBuilder = new UriBuilder(blobClient.Uri)
+            {
+                Query = sasToken.ToString()
+            };
+
+            // Append block ID to the query
+            uriBuilder.Query += $"&comp=block&blockid={Uri.EscapeDataString(blockid)}";
+
+            return Ok(new { url = uriBuilder.Uri.ToString() });
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult UpdateItem(int id, FileItem updatedItem)
+        [HttpGet("get-commit-url")]
+        public IActionResult GetCommitUrl(string filename)
         {
-            var item = _items.FirstOrDefault(x => x.Id == id);
-            if (item == null) return NotFound();
+            var containerClient = _blobServiceClient.GetBlobContainerClient("your-container-name");
+            var blobClient = containerClient.GetBlobClient(filename);
 
-            item.IsComplete = updatedItem.IsComplete;
+            var sasBuilder = new BlobSasBuilder
+            {
+                BlobContainerName = containerClient.Name,
+                BlobName = blobClient.Name,
+                Resource = "b",
+                StartsOn = DateTimeOffset.UtcNow.AddMinutes(-5),
+                ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(15),
+            };
+            sasBuilder.SetPermissions(BlobSasPermissions.Write);
 
-            var retHTML = $"<li id='todo-{item.Id}' class='flex items-center justify-between bg-white p-3 rounded shadow'><span>{item.Task}</span><div><button hx-delete='/api/todo/{item.Id}' hx-target='#todo-{item.Id}' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button></div></li>";
+            var sasToken = sasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(_configuration["AzureAccountName"], _configuration["AzureAccountKey"]));
 
-            return Ok(retHTML);
+            var uriBuilder = new UriBuilder(blobClient.Uri)
+            {
+                Query = sasToken.ToString()
+            };
+
+            // Append block list commit operation to the query
+            uriBuilder.Query += "&comp=blocklist";
+
+            return Ok(new { url = uriBuilder.Uri.ToString() });
         }
     }
-
 }
