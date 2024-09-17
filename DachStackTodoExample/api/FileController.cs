@@ -18,7 +18,8 @@ namespace DachStackApp.api
         public UploadController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _blobServiceClient = new BlobServiceClient(_configuration["DefaultEndpointsProtocol=http;AccountName=localtest-dach;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;"]);
+            string storageConnectionString = "DefaultEndpointsProtocol=http;AccountName=localtest-dach;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;";
+            _blobServiceClient = new BlobServiceClient(storageConnectionString);
         }
 
         [HttpGet("get-presigned-url")]
