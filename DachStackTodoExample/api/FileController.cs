@@ -22,18 +22,22 @@ namespace DachStackApp.api
             Console.WriteLine($@"{_configuration.ToString()}");
             string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;";
             _blobServiceClient = new BlobServiceClient(storageConnectionString);
-
+            var _blobContainerClient = new BlobContainerClient(storageConnectionString, _containerName);
+            
             Console.WriteLine($"Account Name: {_blobServiceClient.AccountName}");
             try
             {
-                var container = _blobServiceClient.CreateBlobContainer(_containerName);
-                Console.WriteLine($"Container: {container?.Value.Uri.ToString()??"Container Creation Failed"}");
+                if(!_blobContainerClient.Exists()) 
+                {
+                    var container = _blobServiceClient.CreateBlobContainer(_containerName);
+                    Console.WriteLine($"Container: {container?.Value.Uri.ToString()??"Container Creation Failed"}");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
             }
-           
+            Console.WriteLine($"Using Container: {_containerName}");
         }
 
         [HttpGet("get-presigned-url")]
