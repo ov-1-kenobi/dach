@@ -4,6 +4,7 @@ node_modules/
 # .Net
 bin/
 obj/
+azurite/
 
 #projects
 /DachStackTodoExample/bin
