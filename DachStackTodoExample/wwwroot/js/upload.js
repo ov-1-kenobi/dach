@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     async function getPresignedUrl(fileName) {
       // Request pre-signed URL from backend
-      const response = await fetch(`/api/get-presigned-url?filename=${encodeURIComponent(fileName)}`);
+      const response = await fetch(`/api/file/get-presigned-url?filename=${encodeURIComponent(fileName)}`);
       if (response.ok) {
         const data = await response.json();
         return data.url;
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     async function getPresignedUrlForBlock(fileName, blockId) {
       // Request pre-signed URL for block from backend
-      const response = await fetch(`/api/get-presigned-url-for-block?filename=${encodeURIComponent(fileName)}&blockid=${encodeURIComponent(blockId)}`);
+      const response = await fetch(`/api/file/get-presigned-url-for-block?filename=${encodeURIComponent(fileName)}&blockid=${encodeURIComponent(blockId)}`);
       if (response.ok) {
         const data = await response.json();
         return data.url;
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     async function getCommitUrl(fileName) {
       // Request pre-signed URL to commit blocks
-      const response = await fetch(`/api/get-commit-url?filename=${encodeURIComponent(fileName)}`);
+      const response = await fetch(`/api/file/get-commit-url?filename=${encodeURIComponent(fileName)}`);
       if (response.ok) {
         const data = await response.json();
         return data.url;
