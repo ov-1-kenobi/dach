@@ -5,6 +5,7 @@
   },
   "scripts": {
     "postinstall": "node create-dirs && copy node_modules\\htmx.org\\dist\\htmx.min.js wwwroot\\lib\\",
+    "set:CORS": "dotnet script ../setcors.csx",
     "build:css": "npx tailwindcss -i wwwroot\\css\\site.css -o wwwroot\\css\\tailwind.css",
     "start:azurite": "azurite --silent --location azurite\\data --debug azurite\\debug.log",
     "watch:files": "npm-watch css && npm-watch html"
