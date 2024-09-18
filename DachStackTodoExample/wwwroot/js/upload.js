@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
   
-      const CHUNK_SIZE = 500 * 1024 * 1024; // 500MB in bytes
+      const CHUNK_SIZE = 10 * 1024 * 1024; // 500MB in bytes
   
       if (file.size <= CHUNK_SIZE) {
         // File is smaller than 500MB, upload directly
