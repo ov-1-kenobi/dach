@@ -8,7 +8,7 @@
 - A part of a vehicle that covers the interior space.
 
 # DACH Stack Overview
-A lightweight collection of technologies that celebrates simplicity. Develop hosted locally off of Azurite services, deliver HTML/X from your backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli.
+A lightweight collection of technologies that celebrates simplicity. Develop hosted locally off of Azurite services, deliver HTML/X from your C# backend, use the HTMX attributes for interaction and Daisy+Tailwind CSS for pre-made components and themes. Finally, deploy to Azure via Bicep files with dotnet cli.
 
 The purpose is to remove as many dependencies as possible and deliver the same, or better, experience without the overhead of js frameworks like React running through local services like docker, node, et al which require their own specific domain knowledge, usually in extreme situations and always at the worst time. Another goal is to remove the reliance on dedicating to a specific db technology and allow the system to dictate/inform which db technologies to use during development. Most, if not all types, are presumed to be provided by Azurite.
 
