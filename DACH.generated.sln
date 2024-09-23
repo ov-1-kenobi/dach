@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DachStackTodoExample", "DachStackTodoExample\DachStackTodoExample.csproj", "{B4FAE966-CC25-4AB6-BA96-BAE0DBDDE0CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DachStackFileExample", "DachStackFileExample\DachStackFileExample.csproj", "{F3A25FF6-DC6E-4631-BCA0-E88B130CD2AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B4FAE966-CC25-4AB6-BA96-BAE0DBDDE0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4FAE966-CC25-4AB6-BA96-BAE0DBDDE0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4FAE966-CC25-4AB6-BA96-BAE0DBDDE0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3A25FF6-DC6E-4631-BCA0-E88B130CD2AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3A25FF6-DC6E-4631-BCA0-E88B130CD2AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3A25FF6-DC6E-4631-BCA0-E88B130CD2AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3A25FF6-DC6E-4631-BCA0-E88B130CD2AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
