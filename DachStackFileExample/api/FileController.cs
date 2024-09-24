@@ -42,6 +42,32 @@ namespace DachStackApp.api
             Console.WriteLine($"Using Container: {_containerName}");
         }
 
+        [HttpGet("get-files")]
+        public IActionResult GetFiles()
+        {
+                var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+                var files = containerClient.GetBlobs();
+
+                var retHTML = $"";
+                foreach(var item in files)
+                {
+                    retHTML += $"<li id='FILE-{item.Name}' class='flex items-center justify-between bg-white p-3 rounded shadow'><span>{item.Name}</span><div><button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button><button hx-swap='outerHTML' hx-get='/api/file/get-file/?filename={item.Name}' hx-target='#image-preview' class='btn btn-success btn-xs'>View</button></div></li>";
+                }
+                return Ok(retHTML);
+
+        }
+
+        [HttpGet("get-file")]
+        public IActionResult GetFile(string filename)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+
+            var blobClient = containerClient.GetBlobClient(filename);
+            var retVal = blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(15));
+
+            return Ok(retVal);
+        }
+
         [HttpGet("get-presigned-url")]
         public IActionResult GetPresignedUrl(string filename)
         {
