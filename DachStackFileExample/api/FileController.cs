@@ -64,7 +64,7 @@ namespace DachStackApp.api
 
             var blobClient = containerClient.GetBlobClient(filename);
             var retVal = blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(15));
-            var retHTML = $@"<img class='avatar w-24 h-24 rounded-full' src='{retVal.ToString()}' alt='Avatar'/>";
+            var retHTML = $@"<img class='avatar w-48 h-48 rounded-full' src='{retVal.ToString()}' alt='Avatar'/>";
             return Ok(retHTML);
         }
 

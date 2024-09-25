@@ -11,8 +11,8 @@ module.exports = {
     ],
     safelist: [
       'avatar',
-      'w-24',
-      'h-24',
+      'w-48',
+      'h-48',
       'rounded-full',
       'text-center',
     ],
