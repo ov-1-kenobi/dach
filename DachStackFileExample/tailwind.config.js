@@ -9,5 +9,12 @@ module.exports = {
     plugins: [
       require('daisyui'),
     ],
+    safelist: [
+      'avatar',
+      'w-24',
+      'h-24',
+      'rounded-full',
+      'text-center',
+    ],
   }
   
