@@ -53,24 +53,41 @@ namespace DachStackApp.api
                 {
                     ////TODO:KO; break-up combination data + render and make 
                     ///render functions for data by type
+                    // retHTML += $"""
+                    // <li id='FILE-{item.Name}' class='flex items-center justify-between bg-white p-3 rounded shadow'>
+                    //     <div>
+                    //         <div class="w-24 h-24">
+                    //         {(GetFile(item.Name) as OkObjectResult)?.Value}
+                    //         </div>
+                    //         <button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                    //             Delete
+                    //         </button><button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' hx-target='#image-preview' class='btn btn-success btn-xs'>
+                    //             View
+                    //         </button>
+                    //         <span>{item.Name}</span>
+                    //     </div>
+                    // </li>
+                    // """;
                     retHTML += $"""
-                    <li id='FILE-{item.Name}' class='flex items-center justify-between bg-white p-3 rounded shadow'>
-                        <div>
-                            <div class="w-24 h-24">
-                            {(GetFile(item.Name) as OkObjectResult)?.Value}
+                    <div id="FILE-{item.Name}" class="card card-compact bg-base-100 w-48 h-48 shadow-xl">
+                        <figure class="h-48 w-full flex items-center justify-center bg-gray-200">
+                            <img class="h-full w-full object-cover" src="{containerClient.GetBlobClient(item.Name).GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(60))}"/>
+                        </figure>
+                        <div class="card-body">
+                            <h4 class="card-title truncate">{item.Name}</h4>
+                            <div class="card-actions justify-end">
+                                <button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                                    Delete
+                                </button>
+                                <button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' onclick="preview_modal.showModal();" hx-target='#modal_image_preview' class='btn btn-success btn-xs'>
+                                    View
+                                </button>
                             </div>
-                            <button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>
-                                Delete
-                            </button><button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' hx-target='#image-preview' class='btn btn-success btn-xs'>
-                                View
-                            </button>
-                            <span>{item.Name}</span>
                         </div>
-                    </li>
+                    </div>
                     """;
                 }
                 return Ok(retHTML);
-
         }
 
         [HttpGet("get-file")]
