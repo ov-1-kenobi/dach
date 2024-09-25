@@ -17,6 +17,7 @@ module.exports = {
       'h-24',
       'rounded-full',
       'text-center',
+      'max-h-24',
     ],
   }
   
