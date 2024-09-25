@@ -51,7 +51,19 @@ namespace DachStackApp.api
                 var retHTML = $"";
                 foreach(var item in files)
                 {
-                    retHTML += $"<li id='FILE-{item.Name}' class='flex items-center justify-between bg-white p-3 rounded shadow'><span>{item.Name}</span><div><button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button><button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' hx-target='#image-preview' class='btn btn-success btn-xs'>View</button></div></li>";
+                    retHTML += $"""
+                    <li id='FILE-{item.Name}' class='flex items-center justify-between bg-white p-3 rounded shadow'>
+                        {(GetFile(item.Name) as OkObjectResult)?.Value}
+                        <div>
+                            <button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                                Delete
+                            </button><button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' hx-target='#image-preview' class='btn btn-success btn-xs'>
+                                View
+                            </button>
+                        </div>
+                        <span>{item.Name}</span>
+                    </li>
+                    """;
                 }
                 return Ok(retHTML);
 
@@ -64,7 +76,9 @@ namespace DachStackApp.api
 
             var blobClient = containerClient.GetBlobClient(filename);
             var retVal = blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(15));
-            var retHTML = $@"<img class='avatar w-48 h-48 rounded-full' src='{retVal.ToString()}' alt='Avatar'/>";
+            var retHTML = $"""
+                <img class='avatar w-24 h-24 rounded-full' src='{retVal.ToString()}' alt='Avatar'/>
+            """;
             return Ok(retHTML);
         }
 

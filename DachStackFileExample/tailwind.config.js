@@ -13,6 +13,8 @@ module.exports = {
       'avatar',
       'w-48',
       'h-48',
+      'w-24',
+      'h-24',
       'rounded-full',
       'text-center',
     ],

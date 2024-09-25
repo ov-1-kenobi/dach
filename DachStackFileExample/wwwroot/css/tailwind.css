@@ -2258,8 +2258,16 @@ html {
   display: table;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
 .h-48 {
   height: 12rem;
+}
+
+.w-24 {
+  width: 6rem;
 }
 
 .w-48 {
