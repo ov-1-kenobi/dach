@@ -29,6 +29,17 @@
       </div>
     </div>
   </div>
+  <dialog id="confirm-modal">
+    <form method="dialog">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure?</h3>
+        <div class="modal-action">
+          <div id="confirm-modal-button"></div>
+          <button class="btn btn-error">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
   <dialog id="preview_modal" class="modal">
     <div class="modal-box">
       <div id="modal_image_preview" class="w-48 h-48">
@@ -43,4 +54,13 @@
   </dialog>
 </body>
 </html>
+<script>
+  document.addEventListener('htmx:afterSwap', (e) => {
+    if (event.detail.target.id === 'confirm-modal-button')
+    {
+      const ctrlDialog = document.getElementById('confirm-modal');
+      ctrlDialog.showModal();
+    }
+  });
+</script>
 

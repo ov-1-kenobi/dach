@@ -2,6 +2,8 @@ using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -42,7 +44,16 @@ namespace DachStackApp.api
             }
             Console.WriteLine($"Using Container: {_containerName}");
         }
-
+        [HttpGet("start-delete")]
+        public IActionResult StartDelete(string fileName)
+        {
+            var delModal = $"""
+                <button hx-delete='/api/file/?filename={fileName}' hx-target='#FILE-{fileName}' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                    Delete
+                </button>
+            """;
+            return Ok(delModal);
+        }
         [HttpGet("get-files")]
         public IActionResult GetFiles()
         {
@@ -52,23 +63,6 @@ namespace DachStackApp.api
                 var retHTML = $"";
                 foreach(var item in files)
                 {
-                    ////TODO:KO; break-up combination data + render and make 
-                    ///render functions for data by type
-                    // retHTML += $"""
-                    // <li id='FILE-{item.Name}' class='flex items-center justify-between bg-white p-3 rounded shadow'>
-                    //     <div>
-                    //         <div class="w-24 h-24">
-                    //         {(GetFile(item.Name) as OkObjectResult)?.Value}
-                    //         </div>
-                    //         <button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>
-                    //             Delete
-                    //         </button><button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' hx-target='#image-preview' class='btn btn-success btn-xs'>
-                    //             View
-                    //         </button>
-                    //         <span>{item.Name}</span>
-                    //     </div>
-                    // </li>
-                    // """;
                     retHTML += $"""
                     <div id="FILE-{item.Name}" class="card card-compact bg-base-100 w-48 h-48 shadow-xl">
                         <figure class="h-48 w-full flex items-center justify-center bg-gray-200">
@@ -77,7 +71,7 @@ namespace DachStackApp.api
                         <div class="card-body">
                             <h4 class="card-title truncate">{item.Name}</h4>
                             <div class="card-actions justify-end">
-                                <button hx-delete='/api/file/{item.Name}' hx-target='closest li' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                                <button hx-get='/api/file/start-delete/?filename={item.Name}' hx-target='#confirm-modal-button' hx-trigger="click" hx-swap='innerHTML' class='btn btn-error btn-xs'>
                                     Delete
                                 </button>
                                 <button hx-swap='innerHTML' hx-get='/api/file/get-file/?filename={item.Name}' onclick="preview_modal.showModal();" hx-target='#modal_image_preview' class='btn btn-success btn-xs'>
@@ -88,6 +82,7 @@ namespace DachStackApp.api
                     </div>
                     """;
                 }
+
                 return Ok(retHTML);
         }
 
@@ -127,6 +122,16 @@ namespace DachStackApp.api
                 <img class='' src='{retVal.ToString()}' alt='No Image'/>
             """;
             return Ok(retHTML);
+        }
+
+        [HttpDelete()]
+        public IActionResult DeleteFile(string filename)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+
+            var blobClient = containerClient.GetBlobClient(filename);
+            blobClient.Delete();
+            return Ok();
         }
 
         [HttpGet("get-presigned-url")]
