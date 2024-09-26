@@ -1,5 +1,6 @@
 using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
@@ -71,7 +72,7 @@ namespace DachStackApp.api
                     retHTML += $"""
                     <div id="FILE-{item.Name}" class="card card-compact bg-base-100 w-48 h-48 shadow-xl">
                         <figure class="h-48 w-full flex items-center justify-center bg-gray-200">
-                            <img class="h-full w-full object-cover" src="{containerClient.GetBlobClient(item.Name).GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(60))}"/>
+                            {renderItemContainer(containerClient, item)}
                         </figure>
                         <div class="card-body">
                             <h4 class="card-title truncate">{item.Name}</h4>
@@ -88,6 +89,31 @@ namespace DachStackApp.api
                     """;
                 }
                 return Ok(retHTML);
+        }
+
+        private string renderItemContainer(BlobContainerClient client, BlobItem item)
+        {
+            if (item.Name.EndsWith(".mp4") || item.Name.EndsWith(".mpeg"))
+            {
+                var vidVal = $"""
+                    <video controls>
+                        <source src="{client.GetBlobClient(item.Name).GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(60))}"/>
+                        Sorry, your browser busted
+                    </video>
+                """;
+            
+                return vidVal;
+            }
+            if (item.Name.EndsWith(".pdf"))
+            {
+                var docVal = $"""
+                    <iframe src="{client.GetBlobClient(item.Name).GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(60))}#page=1"></iframe>
+                """;
+
+                return docVal;
+            }
+            var imgVal = $"""<img class="h-full w-full object-cover" src="{client.GetBlobClient(item.Name).GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(60))}"/>""";
+            return imgVal;
         }
 
         [HttpGet("get-file")]
