@@ -5,6 +5,7 @@ node_modules/
 bin/
 obj/
 azurite/
+azurite/*__.json
 
 #projects
 /DachStackTodoExample/bin
