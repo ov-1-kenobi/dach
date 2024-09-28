@@ -44,16 +44,6 @@ namespace DachStackApp.api
             }
             Console.WriteLine($"Using Container: {_containerName}");
         }
-        [HttpGet("start-delete")]
-        public IActionResult StartDelete(string fileName)
-        {
-            var delModal = $"""
-                <button hx-delete='/api/file/?filename={fileName}' hx-target='#FILE-{fileName}' hx-swap='outerHTML' class='btn btn-error btn-xs'>
-                    Delete
-                </button>
-            """;
-            return Ok(delModal);
-        }
         [HttpGet("get-files")]
         public IActionResult GetFiles()
         {
@@ -124,6 +114,16 @@ namespace DachStackApp.api
             return Ok(retHTML);
         }
 
+        [HttpGet("start-delete")]
+        public IActionResult StartDelete(string fileName)
+        {
+            var delModal = $"""
+                <button hx-delete='/api/file/?filename={fileName}' hx-target='#FILE-{fileName}' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                    Delete
+                </button>
+            """;
+            return Ok(delModal);
+        }
         [HttpDelete()]
         public IActionResult DeleteFile(string filename)
         {
