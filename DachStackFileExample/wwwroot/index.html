@@ -30,7 +30,7 @@
     </div>
   </div>
   <dialog id="confirm-modal">
-    <form method="dialog">
+    <form method="dialog" hx-on="htmx:afterRequest: document.getElementById('confirm-modal').close()">
       <div class="modal-box">
         <h3 class="font-bold text-lg">Are you sure?</h3>
         <div class="modal-action">

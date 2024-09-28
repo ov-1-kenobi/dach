@@ -54,7 +54,7 @@ namespace DachStackApp.api
                 foreach(var item in files)
                 {
                     retHTML += $"""
-                    <div id="FILE-{item.Name}" class="card card-compact bg-base-100 w-48 h-48 shadow-xl">
+                    <div id="file{item.GetUid()}" class="card card-compact bg-base-100 w-48 h-48 shadow-xl">
                         <figure class="h-48 w-full flex items-center justify-center bg-gray-200">
                             {renderItemContainer(containerClient, item)}
                         </figure>
@@ -118,12 +118,13 @@ namespace DachStackApp.api
         public IActionResult StartDelete(string fileName)
         {
             var delModal = $"""
-                <button hx-delete='/api/file/?filename={fileName}' hx-target='#FILE-{fileName}' hx-swap='outerHTML' class='btn btn-error btn-xs'>
+                <button type='submit' hx-delete='/api/file/?filename={fileName}' hx-target='#file{FileControllerHelpers.GetUid(fileName)}' hx-swap='delete' class='btn btn-error btn-xs'>
                     Delete
                 </button>
             """;
             return Ok(delModal);
         }
+
         [HttpDelete()]
         public IActionResult DeleteFile(string filename)
         {
@@ -201,6 +202,17 @@ namespace DachStackApp.api
             uriBuilder.Query += "&comp=blocklist";
 
             return Ok(new { url = uriBuilder.Uri.ToString() });
+        }
+    }
+    public static class FileControllerHelpers
+    {
+        public static string GetUid(this BlobItem item)
+        {
+            return item.Name.GetHashCode().ToString("x");
+        }
+        public static string GetUid(string item_name)
+        {
+            return item_name.GetHashCode().ToString("x");
         }
     }
 }
