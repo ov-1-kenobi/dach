@@ -37,12 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
       if (response.ok) {
         progressBar.value = 100;
         alert('Upload completed successfully.');
+        htmx.trigger('#file-list', 'refresh');
       } else {
         alert('Upload failed.');
       }
     }
   
-    async function uploadFileInChunks(file, chunkSize, progressBar) {
+    async function uploadFileInChunks(file, chunkSize, progressBar, callback) {
       const totalChunks = Math.ceil(file.size / chunkSize);
       let offset = 0;
       let blockIds = [];
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (commitResponse.ok) {
         progressBar.value = 100;
         alert('Upload completed successfully.');
+        htmx.trigger('#file-list', 'refresh');
       } else {
         alert('Failed to commit blocks.');
       }

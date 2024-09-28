@@ -55,6 +55,9 @@
 </body>
 </html>
 <script>
+  htmx.on('#file-list', 'refresh', function() {
+    htmx.ajax('GET', 'api/file/get-files', { target: '#file-list'});
+  });
   document.addEventListener('htmx:afterSwap', (e) => {
     if (event.detail.target.id === 'confirm-modal-button')
     {
@@ -63,4 +66,17 @@
     }
   });
 </script>
-
+<script>
+  counter = 0;
+  request = 0;
+  document.addEventListener('htmx:afterRequest', function(evt){
+    request++;
+      console.log(request + "afterRequest:");
+      console.log(evt);
+  });
+  document.addEventListener('htmx:load', function(evt){
+    counter++;
+      console.log(counter + "load:");
+      console.log(evt);
+  });
+</script>
