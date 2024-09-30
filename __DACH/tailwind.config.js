@@ -1,0 +1,48 @@
+module.exports = {
+    content: [
+      './wwwroot/**/*.{html,js}',
+      './public/index.html'
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [
+      require('daisyui'),
+    ],
+    safelist: [
+      'avatar',
+      'w-48',
+      'h-48',
+      'w-24',
+      'h-24',
+      'rounded-full',
+      'text-center',
+      'max-h-24',
+      'card-body',
+      'card',
+      'card-title',
+      'card-compact',
+      'card-actions',
+      'image-full',
+      'overflow-hidden',
+      'w-full',
+      'h-full',
+      'object-cover',
+      'btn',
+      'btn-error',
+      'btn-success',
+      'btn-xs',
+      'bg-gray-200',
+      'justify-center',
+      'flex',
+      'items-center',
+      'justify-center',
+      'w-96',
+      'shadow-xl',
+      'bg-base-100',
+      'justify-end',
+      'truncate',
+      'object-cover',
+    ],
+  }
+  
