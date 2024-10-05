@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Azure.Data;
+using Azure.Data.Tables;
 
 namespace DachStackApp.api
 {
@@ -9,6 +11,7 @@ namespace DachStackApp.api
     {
         public int Id { get; set; }
         public required string Task { get; set; }
+        public required string Description { get; set; }
         public bool IsComplete { get; set; }
     }
     [ApiController]
@@ -16,6 +19,21 @@ namespace DachStackApp.api
     public class ToDoController : ControllerBase
     {
         private static List<ToDoItem> _items = new List<ToDoItem>();
+        private readonly IConfiguration _configuration;
+        private readonly TableServiceClient _TableServiceClient;
+        private readonly string _tableName;
+    public ToDoController(IConfiguration configuration, string tableName = "dach-table-controllerf3fef90e-a7c9-4242-b679-97517997e66e")
+    {
+        _configuration = configuration;
+        _tableName = tableName;
+
+        string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
+        _TableServiceClient = new TableServiceClient(storageConnectionString);
+
+        _TableServiceClient.CreateTableIfNotExists(_tableName);
+        var tableClient = _TableServiceClient.GetTableClient(_tableName);
+        
+    }
 
         [HttpGet]
         public IActionResult GetItems() 
