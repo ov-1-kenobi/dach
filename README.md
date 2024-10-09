@@ -172,7 +172,7 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 - **Milestone 1:FullStack**: Complete, fullstack operations on local development environment using Azurite. Add 2 projects [fileUpload], [fileReader].
    - ~~***fileUpload*** a simple file uploader that uploads to the local azurite blob service.  (Sept. 2024) 🛠️~~
    - ~~***fileReader*** a simple file "browser". display a list of the uploaded files, clicking on a file brings up a viewer modal (Sept. 2024) 🛠️~~
-   - ***todo*** update the todo app, save values into an Azurite table service table. (September 2024) ⏳
+   - ~~***todo*** update the todo app, save values into an Azurite table service table. (September 2024) ⏳~~
 - **Milestone 1b: Networked live chat**
    - ***chat*** a simple chat app; allows connections with monikers in a lobby/room environment (htmx-signalr & websockets) (October 2024)
 - **Milestone 2:DevOps**: Bicep and csharp script plugged in to allow full control of resources via bicep files in dev (with .csx file helpers) and dotnet cli deployment. Fullstack deployed to Azure cloud service account with setup instructions for standing up an Azure subscription and resources and where to place the configuration secrets/ids (October 2024) 
