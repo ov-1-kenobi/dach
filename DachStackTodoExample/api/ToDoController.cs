@@ -37,7 +37,7 @@ namespace DachStackApp.api
     }
     public class ToDoItem
     {
-        public int Id { get; set; }
+        public string? Id { get; set; }
         public required string Task { get; set; }
         //public required string Description { get; set; }
         public bool IsComplete { get; set; }
@@ -60,9 +60,6 @@ namespace DachStackApp.api
         string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
         _TableServiceClient = new TableServiceClient(storageConnectionString);
 
-        //_TableServiceClient.CreateTableIfNotExists(_tableName);
-        //var tableClient = _TableServiceClient.GetTableClient(_tableName);
-        
     }
 
         [HttpGet]
@@ -72,6 +69,8 @@ namespace DachStackApp.api
             var retHTML = $"";
             TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
             var items = tableClient.Query<StorageEntity>();
+
+            var todos = items.Select(t => t.getObjectValue() as ToDoItem).ToList();
 
             foreach (StorageEntity item in items)
             {
@@ -86,17 +85,25 @@ namespace DachStackApp.api
             _TableServiceClient.CreateTableIfNotExists(_tableName);
             TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
             //TODO:KO; tie in principal info here for 'logging' changers
+            string entityId = Guid.NewGuid().ToString();
             StorageEntity storageEntity = new StorageEntity() {
                 PartitionKey = APARTITIONKEY, //principal tenant info
-                RowKey = item.Id.ToString(), //UID; int for now
+                RowKey = entityId, //UID; int for now
                 //ObjectValue = item
             };
+            item.Id = entityId;
             storageEntity.setObjectValue(item); 
             // item.Id = _items.Count + 1;
             // _items.Add(item);
             tableClient.AddEntity<StorageEntity>(storageEntity);
             
-            var retHTML = $"<li id='todo-{item.Id}' class='flex items-center justify-between bg-white p-3 rounded shadow'><span>{item.Task}</span><div><button hx-delete='/api/todo/{item.Id}' hx-target='#todo-{item.Id}' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button><button hx-patch='/api/todo/{item.Id}' hx-vals='{{\"IsComplete\":true}}' class='btn btn-success btn-xs'>Complete</button></div></li>";
+            var retHTML = $"""
+            <li id='todo-{item.Id}' class='flex items-center justify-between bg-white p-3 rounded shadow'>
+            <span>{item.Task}</span>
+            <div>
+            <button hx-delete='/api/todo/{item.Id}' hx-target='#todo-{item.Id}' hx-swap='outerHTML' class='btn btn-error btn-xs'>Delete</button>
+            <button hx-patch='/api/todo/{item.Id}' hx-vals='\"IsComplete\":true' class='btn btn-success btn-xs'>Complete</button></div></li>
+            """;
             if (Request.Headers["Accept"].ToString().Contains("*/*"))
             {
                 return GetItems();
@@ -109,16 +116,23 @@ namespace DachStackApp.api
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteItem(int id)
+        public IActionResult DeleteItem(string id)
         {
-            var item = _items.FirstOrDefault(x => x.Id == id);
-            if (item == null) return NotFound();
-            _items.Remove(item);
-            return Ok();
+            _TableServiceClient.CreateTableIfNotExists(_tableName);
+            TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
+            StorageEntity cadaver = tableClient.GetEntity<StorageEntity>(APARTITIONKEY, id);
+            if (cadaver != null)
+            {
+                tableClient.DeleteEntity(cadaver);
+                return Ok();
+            }
+
+            return NotFound();
+
         }
 
         [HttpPatch("{id}")]
-        public IActionResult UpdateItem(int id, ToDoItem updatedItem)
+        public IActionResult UpdateItem(string id, ToDoItem updatedItem)
         {
             var item = _items.FirstOrDefault(x => x.Id == id);
             if (item == null) return NotFound();
