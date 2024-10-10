@@ -77,86 +77,6 @@ Ensure you have the following installed:
 
    The application will be available at `https://localhost:5263`.
 
-### Securing the API with JWT and Azure AD
-
-1. **Register the Application in Azure AD:**
-   - Register your application in Azure AD, configure API permissions, and obtain the Client ID and Tenant ID.
-
-2. **Install JWT Authentication Packages:**
-
-   ```bash
-   dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
-   dotnet add package Microsoft.Identity.Web
-   ```
-
-3. **Configure JWT Authentication:**
-   - Update `Program.cs` with JWT authentication settings:
-
-   ```csharp
-   var builder = WebApplication.CreateBuilder(args);
-
-   builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-       .AddJwtBearer(options =>
-       {
-           options.Authority = $"https://login.microsoftonline.com/{builder.Configuration["AzureAd:TenantId"]}/v2.0";
-           options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-           {
-               ValidateIssuer = true,
-               ValidIssuer = $"https://login.microsoftonline.com/{builder.Configuration["AzureAd:TenantId"]}/v2.0",
-               ValidateAudience = true,
-               ValidAudience = builder.Configuration["AzureAd:ClientId"],
-               ValidateLifetime = true,
-           };
-       });
-
-   builder.Services.AddControllers();
-   builder.Services.AddAuthorization();
-
-   var app = builder.Build();
-
-   app.UseHttpsRedirection();
-   app.UseAuthentication();
-   app.UseAuthorization();
-
-   app.MapControllers();
-
-   app.Run();
-   ```
-
-   - Add `AzureAd:TenantId` and `AzureAd:ClientId` to `appsettings.json`:
-
-   ```json
-   {
-     "AzureAd": {
-       "TenantId": "your-tenant-id",
-       "ClientId": "your-client-id"
-     }
-   }
-   ```
-
-4. **Secure API Endpoints:**
-   - Use `[Authorize]` to secure your API controllers:
-
-   ```csharp
-   [Authorize]
-   [ApiController]
-   [Route("api/[controller]")]
-   public class ToDoController : ControllerBase
-   {
-       // Your API methods
-   }
-   ```
-
-5. **Configure HTMX to Include JWT Tokens:**
-
-   ```javascript
-   document.body.addEventListener('htmx:configRequest', function(event) {
-       let token = localStorage.getItem('jwt');
-       if (token) {
-           event.detail.headers['Authorization'] = `Bearer ${token}`;
-       }
-   });
-   ```
 
 ### Bicep Deployment
 
@@ -165,22 +85,6 @@ Refer to the Bicep section for deploying resources to Azure, including setting u
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
-
-
-## Roadmap
-~~- **Milestone 0:POC**: Todo app proof of concept.  (Aug. 2024)-(05 Sept. 2024)~~
-- **Milestone 1:FullStack**: Complete, fullstack operations on local development environment using Azurite. Add 2 projects [fileUpload], [fileReader].
-   - ~~***fileUpload*** a simple file uploader that uploads to the local azurite blob service.  (Sept. 2024) 🛠️~~
-   - ~~***fileReader*** a simple file "browser". display a list of the uploaded files, clicking on a file brings up a viewer modal (Sept. 2024) 🛠️~~
-   - ~~***todo*** update the todo app, save values into an Azurite table service table. (September 2024) ⏳~~
-- **Milestone 1b: Networked live chat**
-   - ***chat*** a simple chat app; allows connections with monikers in a lobby/room environment (htmx-signalr & websockets) (October 2024)
-- **Milestone 2:DevOps**: Bicep and csharp script plugged in to allow full control of resources via bicep files in dev (with .csx file helpers) and dotnet cli deployment. Fullstack deployed to Azure cloud service account with setup instructions for standing up an Azure subscription and resources and where to place the configuration secrets/ids (October 2024) 
-- **Milestone 3:DachWorkers**: Research a "built-in" utility/service for engaging with web workers to enable crisper/faster UI/X interactions and responses. Build ways to do batch file uploads and firing/managing multiple tasks/requests at the same time. (November 2024)
-- **Milestone 4:Security**: Work on examples to allow using google, facebook, microsoft authentications therefore allowing users to leverage their current authentication providers (December 2024)
-- **Milestone ALPHA:=> TESTS PERFORMANCE DEPLOYMENT <=**: Performance, testing, and Deploying complete systems (code and resources) for environments in AZURE (Jun. 2025)
-- **Milestone BRAVO:=> AWS POC OF ALL FEATURES <=**: Work on Azure DACH fullstack operations on local development environment using AWS LocalStack and deploy to AWS. (March 2025)
-- **Milestone GOLD:=> ALL STACK <=**:Support mode; manage issues & requests, future features & hosts. (June 2025-)
 
 ## License
 
