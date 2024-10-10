@@ -16,8 +16,6 @@ Maybe HTMX helps to deliver with some of these concepts by giving simple wiring 
 
 I'm also hoping to mitigate a lot of uneccessary reproduction of state and logic while delivering an easy, straightforward development experience. I'm probably wrong, but I've never done one of these things before, so we're already learning. If you would like to follow along or would like to contribute, please feel free to do so.
 
-Thank you for your time
-
 # DACH Stack Project Template
 
 Welcome to the DACH Stack project template! This repository provides a starter template for building modern web applications using the **DACH Stack**:
