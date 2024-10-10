@@ -18,13 +18,6 @@ I'm also hoping to mitigate a lot of uneccessary reproduction of state and logic
 
 Thank you for your time
 
-## Current Status
-- (28 Sept. '24) Completed the file upload and combined with viewing, working on a bug with the delete dialog; also working on updating the todo app to use a local table for storage. Added a chat room app to the pipeline to research htmx's ability to work with signalr and websockets.
-   - *EXAMPLES*
-      * **Todo List**
-      * **Image Upload & Viewer**
-      * **Chat Room**
-
 # DACH Stack Project Template
 
 Welcome to the DACH Stack project template! This repository provides a starter template for building modern web applications using the **DACH Stack**:
