@@ -88,13 +88,10 @@ namespace DachStackApp.api
             string entityId = Guid.NewGuid().ToString();
             StorageEntity storageEntity = new StorageEntity() {
                 PartitionKey = APARTITIONKEY, //principal tenant info
-                RowKey = entityId, //UID; int for now
-                //ObjectValue = item
+                RowKey = entityId, //GUID
             };
             item.Id = entityId;
             storageEntity.setObjectValue(item); 
-            // item.Id = _items.Count + 1;
-            // _items.Add(item);
             tableClient.AddEntity<StorageEntity>(storageEntity);
             
             var retHTML = $"""
@@ -107,7 +104,6 @@ namespace DachStackApp.api
             if (Request.Headers["Accept"].ToString().Contains("*/*"))
             {
                 return GetItems();
-                //return Content(retHTML, "text/html");
             }
             else
             {
