@@ -1,0 +1,6 @@
+@DachStackChatExample_HostAddress = http://localhost:5263
+
+GET {{DachStackChatExample_HostAddress}}/
+Accept: application/json
+
+###

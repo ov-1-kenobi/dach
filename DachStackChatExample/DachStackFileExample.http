@@ -1,6 +1,0 @@
-@DachStackFileExample_HostAddress = http://localhost:5263
-
-GET {{DachStackFileExample_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

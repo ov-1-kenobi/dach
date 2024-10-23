@@ -1,3 +1,9 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+using DachStackApp.api;
+using DachStackApp;
+using DachStackApp.Hubs;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,7 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null;});
+
+builder.Services.AddSignalR();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -27,6 +38,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
+
 
 // var summaries = new[]
 // {

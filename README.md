@@ -68,6 +68,9 @@ Ensure you have the following installed:
 
    The application will be available at `https://localhost:5263`.
 
+### cli tools
+dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+libman
 
 ### Bicep Deployment
 

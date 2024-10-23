@@ -6,14 +6,21 @@
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}\\DachStackFileExample\\DachStackFileExample.csproj",
-            "launchConfigurationId": "TargetFramework=;http"
+
         },
         {
             "name": "C#: DachStackTodoExample [http]",
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}\\DachStackTodoExample\\DachStackTodoExample.csproj",
-            "launchConfigurationId": "TargetFramework=;http"
-        }
+
+        },
+        {
+            "name": "C#: DachStackChatExample [http]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\DachStackChatExample\\DachStackChatExample.csproj",
+
+        },
     ]
 }

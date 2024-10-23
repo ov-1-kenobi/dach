@@ -8,6 +8,7 @@
     <link href="css/tailwind.css" rel="stylesheet">
     <script src="lib/htmx.min.js"></script>
     <script src="js/chat.js"></script>
+    <script src="/js/signalr/dist/browser/signalr.js"></script>
 </head>
 <body>
   <figure class="figure">
@@ -18,9 +19,13 @@
     <ul id="chat-log" hx-get="api/chat" hx-trigger="load" class="mt-5 space-y-2">
       <!-- Chat items will be inserted here -->
     </ul>
-    <form id="addForm" hx-post="/api/chat" hx-swap="innerHTML" hx-target="#chat-log" hx-headers='{"Content-Type": "text/html"}'>
-        <input type="text" name="Task" class="input input-bordered w-full max-w-xs" placeholder="Add new task" required>
-        <button type="submit" class="btn btn-primary mt-2">Add Task</button>
+    <form id="messageForm" class="flex space-x-2"
+      hx-post="/api/chat/send"
+      hx-trigger="submit"
+      hx-include="#user,#message"
+      hx-swap="none"
+      onsubmit="document.getElementById('message').value = '';">
+      <!-- Form fields -->
     </form>
 </div>
 </body>
@@ -30,12 +35,39 @@
   request = 0;
   document.addEventListener('htmx:afterRequest', function(evt){
     request++;
-      console.log(request + "afterRequest:");
-      console.log(evt);
+    console.log(request + "afterRequest:");
+    console.log(evt);
   });
   document.addEventListener('htmx:load', function(evt){
     counter++;
-      console.log(counter + "load:");
-      console.log(evt);
+    console.log(counter + "load:");
+    console.log(evt);
+  });
+  // Initialize SignalR connection
+  const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .build();
+
+  // Start the connection
+  connection.start()
+      .then(function () {
+          console.log("SignalR Connected.");
+      })
+      .catch(function (err) {
+          console.error("Error starting SignalR connection:", err);
+      });
+      
+  connection.on("ReceiveMessage", function (user, message) {
+    var messageDiv = document.getElementById("messages");
+    var newMessage = document.createElement("div");
+    newMessage.classList.add("chat", "mb-2");
+    
+    var chatBubble = document.createElement("div");
+    chatBubble.classList.add("chat-bubble");
+    chatBubble.innerHTML = "<strong>" + user + ":</strong> " + message;
+    
+    newMessage.appendChild(chatBubble);
+    messageDiv.appendChild(newMessage);
+    messageDiv.scrollTop = messageDiv.scrollHeight;
   });
 </script>
