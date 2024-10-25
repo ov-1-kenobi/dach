@@ -7,8 +7,8 @@
     <link href="css/site.css" rel="stylesheet">
     <link href="css/tailwind.css" rel="stylesheet">
     <script src="lib/htmx.min.js"></script>
-    <script src="js/chat.js"></script>
     <script src="/js/signalr/dist/browser/signalr.js"></script>
+    <script src="js/chat.js"></script>
 </head>
 <body>
   <figure class="figure">
@@ -16,15 +16,18 @@
   </figure>
   <div class="container mx-auto">
     <h1 class="text-3xl font-bold mb-5">Chat Log</h1>
-    <ul id="chat-log" hx-get="api/chat" hx-trigger="load" class="mt-5 space-y-2">
+    <ul id="messagesList" hx-get="api/chatHub" hx-trigger="load" class="mt-5 space-y-2">
       <!-- Chat items will be inserted here -->
     </ul>
     <form id="messageForm" class="flex space-x-2"
-      hx-post="/api/chat/send"
+      hx-post="/api/chatHub/send"
       hx-trigger="submit"
       hx-include="#user,#message"
       hx-swap="none"
       onsubmit="document.getElementById('message').value = '';">
+        <input type="text" id="userInput" class="input-primary">
+        <input type="text" id="messageInput" class="input-secondary">
+        <button type="button" id="sendButton" class="btn btn-primary">Send Message</input>
       <!-- Form fields -->
     </form>
 </div>
@@ -56,10 +59,10 @@
       .catch(function (err) {
           console.error("Error starting SignalR connection:", err);
       });
-      
+
   connection.on("ReceiveMessage", function (user, message) {
-    var messageDiv = document.getElementById("messages");
-    var newMessage = document.createElement("div");
+    var messageDiv = document.getElementById("messagesList");
+    var newMessage = document.createElement("li");
     newMessage.classList.add("chat", "mb-2");
     
     var chatBubble = document.createElement("div");
@@ -70,4 +73,13 @@
     messageDiv.appendChild(newMessage);
     messageDiv.scrollTop = messageDiv.scrollHeight;
   });
+  document.getElementById("sendButton").addEventListener("click", function (event) {
+    var user = document.getElementById("userInput").value;
+    var message = document.getElementById("messageInput").value;
+    connection.invoke("SendMessage", user, message).catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+  });
 </script>
+
