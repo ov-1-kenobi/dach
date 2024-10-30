@@ -16,18 +16,23 @@
   </figure>
   <div class="container mx-auto">
     <h1 class="text-3xl font-bold mb-5">Chat Log</h1>
-    <ul id="messagesList" hx-get="api/chatHub" hx-trigger="load" class="mt-5 space-y-2">
+    <ul id="messagesList" hx-get="api/chatHub" hx-trigger="" class="mt-5 space-y-2">
       <!-- Chat items will be inserted here -->
     </ul>
     <form id="messageForm" class="flex space-x-2"
       hx-post="/api/chatHub/send"
       hx-trigger="submit"
-      hx-include="#user,#message"
-      hx-swap="none"
-      onsubmit="document.getElementById('message').value = '';">
-        <input type="text" id="userInput" class="input-primary">
-        <input type="text" id="messageInput" class="input-secondary">
-        <button type="button" id="sendButton" class="btn btn-primary">Send Message</input>
+      hx-include="[name='user'],[name='message']"
+      hx-swap="none">
+      <p>
+        <label>Username:</label>
+        <input type="text" name="user" id="user" class="input-primary">
+      </p>  
+      <p>
+        <label>Message:</label>
+        <input type="text" name="message" id="message" class="input-secondary">
+      </p>
+      <button type="submit" id="sendButton" class="btn btn-primary">Send Message</input>
       <!-- Form fields -->
     </form>
 </div>
@@ -36,10 +41,12 @@
 <script>
   counter = 0;
   request = 0;
+
   document.addEventListener('htmx:afterRequest', function(evt){
     request++;
     console.log(request + "afterRequest:");
     console.log(evt);
+    clearInput();
   });
   document.addEventListener('htmx:load', function(evt){
     counter++;
@@ -50,36 +57,34 @@
   const connection = new signalR.HubConnectionBuilder()
     .withUrl("/chatHub")
     .build();
-
-  // Start the connection
-  connection.start()
-      .then(function () {
+    
+    // Start the connection
+    connection.start()
+    .then(function () {
           console.log("SignalR Connected.");
       })
       .catch(function (err) {
-          console.error("Error starting SignalR connection:", err);
+        console.error("Error starting SignalR connection:", err);
       });
-
-  connection.on("ReceiveMessage", function (user, message) {
-    var messageDiv = document.getElementById("messagesList");
-    var newMessage = document.createElement("li");
-    newMessage.classList.add("chat", "mb-2");
-    
-    var chatBubble = document.createElement("div");
-    chatBubble.classList.add("chat-bubble");
-    chatBubble.innerHTML = "<strong>" + user + ":</strong> " + message;
-    
-    newMessage.appendChild(chatBubble);
-    messageDiv.appendChild(newMessage);
-    messageDiv.scrollTop = messageDiv.scrollHeight;
-  });
-  document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
-    event.preventDefault();
-  });
-</script>
+      
+      connection.on("ReceiveMessage", function (user, message) {
+        var messageDiv = document.getElementById("messagesList");
+        var newMessage = document.createElement("li");
+        newMessage.classList.add("chat", "mb-2");
+        
+        var chatBubble = document.createElement("div");
+        chatBubble.classList.add("chat-bubble");
+        chatBubble.innerHTML = "<strong>" + user + ":</strong> " + message;
+        
+        newMessage.appendChild(chatBubble);
+        messageDiv.appendChild(newMessage);
+        messageDiv.scrollTop = messageDiv.scrollHeight;
+      });
+      function clearInput() {
+        let messageInput = document.getElementById('message');
+        if(messageInput){
+          messageInput.value = '';
+        }
+      };
+    </script>
 
