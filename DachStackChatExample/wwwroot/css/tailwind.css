@@ -2903,10 +2903,6 @@ input.tab:checked + .tab-content,
   display: table;
 }
 
-.h-10 {
-  height: 2.5rem;
-}
-
 .h-24 {
   height: 6rem;
 }
@@ -2925,10 +2921,6 @@ input.tab:checked + .tab-content,
 
 .max-h-24 {
   max-height: 6rem;
-}
-
-.w-10 {
-  width: 2.5rem;
 }
 
 .w-24 {

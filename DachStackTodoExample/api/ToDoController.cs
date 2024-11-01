@@ -59,13 +59,13 @@ namespace DachStackApp.api
 
         string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
         _TableServiceClient = new TableServiceClient(storageConnectionString);
+        _TableServiceClient.CreateTableIfNotExists(_tableName);
 
     }
 
         [HttpGet]
         public IActionResult GetItems() 
         { 
-            _TableServiceClient.CreateTableIfNotExists(_tableName);
             var retHTML = $"";
             TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
             var items = tableClient.Query<StorageEntity>();
@@ -82,7 +82,6 @@ namespace DachStackApp.api
         [HttpPost]
         public IActionResult AddItem([FromForm]ToDoItem item)
         {
-            _TableServiceClient.CreateTableIfNotExists(_tableName);
             TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
             //TODO:KO; tie in principal info here for 'logging' changers
             string entityId = Guid.NewGuid().ToString();

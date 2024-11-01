@@ -15,9 +15,13 @@
       }
       function loadUsername() {
         const username = localStorage.getItem('username');
+        const messagesList = document.getElementById('messagesList');
         if(username)
         {
-          document.getElementById('user').value = username;
+          document.getElementById('user').value = username;          
+          messagesList.setAttribute('hx-get', `api/chatHub/messages?username=${username}`);
+          htmx.process(messagesList);//force re-render
+          document.body.dispatchEvent(new Event('usernameLoaded'));
         }
       }
     </script>
@@ -29,12 +33,17 @@
     </figure>
     <div class="card-body">
       <h1 class="card-title">Chat Log</h1>
+      <ul id="messagesList" class="mt-5 space-y-2" hx-swap="innerHTML" hx-trigger="usernameLoaded from:body">
+        <!-- Chat items will be inserted here hx-get="api/chatHub/messages" hx-swap="innerHTML" hx-trigger="load" -->
+      </ul>
       <form id="messageForm" class=""
       hx-post="/api/chatHub/send"
       hx-trigger="submit"
-      hx-include="[name='user'],[name='message']"
+      hx-include="[name='user'],[name='message'],[name='room']"
       hx-swap="none">
-      
+      <label class="input input-bordered flex items-center gp-2">
+        <input type="text" name="room" id="room" class="grow" placeholder="Please, enter room" value="Lobby">
+      </label>
       <label class="input input-bordered flex items-center gap-2">
         <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -46,9 +55,6 @@
         </svg>
         <input type="text" name="user" id="user" class="grow" placeholder="Username" onblur="saveUsername()">
       </label> 
-      <ul id="messagesList" hx-get="api/chatHub" hx-trigger="" class="mt-5 space-y-2">
-        <!-- Chat items will be inserted here -->
-      </ul>
       <!-- Form fields -->
         <div class="card-actions justify-end">
           <label class="input input-bordered flex items-center gap-2">
@@ -65,18 +71,20 @@
   counter = 0;
   request = 0;
 
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("load username")
+    loadUsername();
+  });
   document.addEventListener('htmx:afterRequest', function(evt){
     request++;
     console.log(request + "afterRequest:");
     console.log(evt);
     clearInput();
   });
-  document.addEventListener('htmx:load', function(evt){
+  document.addEventListener('htmx:beforeOnLoad', function(evt){
     counter++;
     console.log(counter + "load:");
     console.log(evt);
-    console.log("load username")
-    loadUsername();
   });
   // Initialize SignalR connection
   const connection = new signalR.HubConnectionBuilder()
