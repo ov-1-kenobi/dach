@@ -8,7 +8,6 @@
     <link href="css/tailwind.css" rel="stylesheet">
     <script src="lib/htmx.min.js"></script>
     <script src="/js/signalr/dist/browser/signalr.js"></script>
-    <script src="js/chat.js"></script>
     <script>
       function saveUsername() {
         const username = document.getElementById('user').value;
@@ -50,11 +49,8 @@
       <ul id="messagesList" hx-get="api/chatHub" hx-trigger="" class="mt-5 space-y-2">
         <!-- Chat items will be inserted here -->
       </ul>
-
       <!-- Form fields -->
-      
         <div class="card-actions justify-end">
-
           <label class="input input-bordered flex items-center gap-2">
             <input type="text" name="message" id="message" class="grow" placeholder="Message">
           </label>
