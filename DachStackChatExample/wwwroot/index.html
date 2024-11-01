@@ -9,33 +9,60 @@
     <script src="lib/htmx.min.js"></script>
     <script src="/js/signalr/dist/browser/signalr.js"></script>
     <script src="js/chat.js"></script>
+    <script>
+      function saveUsername() {
+        const username = document.getElementById('user').value;
+        localStorage.setItem('username', username);
+      }
+      function loadUsername() {
+        const username = localStorage.getItem('username');
+        if(username)
+        {
+          document.getElementById('user').value = username;
+        }
+      }
+    </script>
 </head>
 <body>
-  <figure class="figure">
-    <img src="./assets/dachlogo.png" alt="Logo" class="w-10 h-10">
-  </figure>
-  <div class="container mx-auto">
-    <h1 class="text-3xl font-bold mb-5">Chat Log</h1>
-    <ul id="messagesList" hx-get="api/chatHub" hx-trigger="" class="mt-5 space-y-2">
-      <!-- Chat items will be inserted here -->
-    </ul>
-    <form id="messageForm" class="flex space-x-2"
+  <div class="card bg-base-100 w-96 shadow-xl">
+    <figure>
+      <img src="./assets/dachlogo.png" alt="Logo">
+    </figure>
+    <div class="card-body">
+      <h1 class="card-title">Chat Log</h1>
+      <form id="messageForm" class=""
       hx-post="/api/chatHub/send"
       hx-trigger="submit"
       hx-include="[name='user'],[name='message']"
       hx-swap="none">
-      <p>
-        <label>Username:</label>
-        <input type="text" name="user" id="user" class="input-primary">
-      </p>  
-      <p>
-        <label>Message:</label>
-        <input type="text" name="message" id="message" class="input-secondary">
-      </p>
-      <button type="submit" id="sendButton" class="btn btn-primary">Send Message</input>
+      
+      <label class="input input-bordered flex items-center gap-2">
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        class="h-4 w-4 opacity-70">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+        </svg>
+        <input type="text" name="user" id="user" class="grow" placeholder="Username" onblur="saveUsername()">
+      </label> 
+      <ul id="messagesList" hx-get="api/chatHub" hx-trigger="" class="mt-5 space-y-2">
+        <!-- Chat items will be inserted here -->
+      </ul>
+
       <!-- Form fields -->
-    </form>
-</div>
+      
+        <div class="card-actions justify-end">
+
+          <label class="input input-bordered flex items-center gap-2">
+            <input type="text" name="message" id="message" class="grow" placeholder="Message">
+          </label>
+          <button type="submit" id="sendButton" class="btn btn-primary">Send Message</input>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
 <script>
@@ -52,6 +79,8 @@
     counter++;
     console.log(counter + "load:");
     console.log(evt);
+    console.log("load username")
+    loadUsername();
   });
   // Initialize SignalR connection
   const connection = new signalR.HubConnectionBuilder()
@@ -70,7 +99,12 @@
       connection.on("ReceiveMessage", function (user, message) {
         var messageDiv = document.getElementById("messagesList");
         var newMessage = document.createElement("li");
+        let _user = document.getElementById('user').value;
         newMessage.classList.add("chat", "mb-2");
+        if (user === _user)
+          newMessage.classList.add("chat-end");
+        else
+          newMessage.classList.add("chat-start");
         
         var chatBubble = document.createElement("div");
         chatBubble.classList.add("chat-bubble");

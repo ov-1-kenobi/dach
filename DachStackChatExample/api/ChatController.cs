@@ -73,8 +73,20 @@ namespace DachStackApp.api
         public async Task<IActionResult> SendMessage([FromForm] string user, [FromForm] string message)
         {
             await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+            //write message to a table
             return Ok();
         }
+        [HttpGet()]
+        public async Task<IActionResult> GetMessages()
+        {
+            //await get messages from table
+            return Ok();
+        }
+        [HttpDelete()]
+        public async Task<IActionResult> DeleteMessage([FromForm] string message)
+        {
 
+            return Ok(); 
+        }
     }
 }
