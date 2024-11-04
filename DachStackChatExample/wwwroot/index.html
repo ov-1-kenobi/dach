@@ -33,7 +33,7 @@
     </figure>
     <div class="card-body">
       <h1 class="card-title">Chat Log</h1>
-      <ul id="messagesList" class="mt-5 space-y-2" hx-swap="innerHTML" hx-trigger="usernameLoaded from:body">
+      <ul id="messagesList" class="mt-5 space-y-2" hx-swap="innerHTML settle:1s" hx-trigger="usernameLoaded from:body">
         <!-- Chat items will be inserted here hx-get="api/chatHub/messages" hx-swap="innerHTML" hx-trigger="load" -->
       </ul>
       <form id="messageForm" class=""

@@ -4,6 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using DachStackApp.api;
 using DachStackApp;
 using DachStackApp.Hubs;
+using Azure.Data.Tables;
+using System.Reflection.Metadata;
+using System.ComponentModel;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Azure.SignalR;
+using Azure.Storage.Blobs;
+using Azure.Storage.Queues;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,6 +20,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null;});
 
+string storageConnectionString = builder.Configuration.GetConnectionString("AzureStorage");
+
+//IOC azure middleware
+builder.Services.AddSingleton(new TableServiceClient(storageConnectionString));
+//builder.Services.AddSingleton(new BlobServiceClient(storageConnectionString));
+//builder.Services.AddSingleton(new QueueServiceClient(storageConnectionString));
+
+//SignalR service
+bool useAzureSignalR = builder.Configuration.GetValue<bool>("SignalR:UseAzure", defaultValue: false);
+if(useAzureSignalR)
+{
+    builder.Services.AddSignalR().AddAzureSignalR(builder.Configuration["SignalR:AzureSignalRConnectionString"]);
+}
+else{
+
+}
 builder.Services.AddSignalR();
 
 var app = builder.Build();
@@ -43,31 +66,4 @@ app.MapControllers();
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
 
-
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
-
-// app.MapGet("/weatherforecast", () =>
-// {
-//     var forecast =  Enumerable.Range(1, 5).Select(index =>
-//         new WeatherForecast
-//         (
-//             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//             Random.Shared.Next(-20, 55),
-//             summaries[Random.Shared.Next(summaries.Length)]
-//         ))
-//         .ToArray();
-//     return forecast;
-// })
-// .WithName("GetWeatherForecast")
-//.WithOpenApi();
-
 app.Run();
-
-// record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-// {
-//     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-// }
-
