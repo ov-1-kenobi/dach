@@ -4,13 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using DachStackApp.api;
 using DachStackApp;
 using DachStackApp.Hubs;
-using Azure.Data.Tables;
 using System.Reflection.Metadata;
 using System.ComponentModel;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Azure.SignalR;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
+using Azure.Data.Tables;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
