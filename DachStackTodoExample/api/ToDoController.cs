@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace DachStackApp.api
 {
@@ -23,7 +24,6 @@ namespace DachStackApp.api
         {
             storageEntity.JsonValue = JsonSerializer.Serialize(value);
         }
-
     }
     public class StorageEntity : ITableEntity
     {
@@ -32,8 +32,8 @@ namespace DachStackApp.api
         public float Version { get; set; }
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
+        public string TypeName { get; set; }
         public string JsonValue { get; set; }
-        
     }
     public class ToDoItem
     {
@@ -90,6 +90,7 @@ namespace DachStackApp.api
                 RowKey = entityId, //GUID
             };
             item.Id = entityId;
+            storageEntity.TypeName = item.GetType().Name;
             storageEntity.setObjectValue(item); 
             tableClient.AddEntity<StorageEntity>(storageEntity);
             

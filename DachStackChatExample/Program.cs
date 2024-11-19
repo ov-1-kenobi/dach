@@ -34,9 +34,8 @@ if(useAzureSignalR)
     builder.Services.AddSignalR().AddAzureSignalR(builder.Configuration["SignalR:AzureSignalRConnectionString"]);
 }
 else{
-
+    builder.Services.AddSignalR();
 }
-builder.Services.AddSignalR();
 
 var app = builder.Build();
 
