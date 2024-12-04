@@ -92,4 +92,17 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - **Bicep:** For simplifying infrastructure as code.
 
 🛠️ currently in progress
-⏳  research 
+⏳  research  
+
+## Deploy
+
+- Make sure Azure Devloper CLI is installed; you can use 'chocolatey' to check and install.  
+  - >choco list -localonly
+  - >choco install -g azure-cli  
+
+- Use 'az' to login and attach a subscription to your session
+  - >az login (follow prompts, select (enter number) for the subscription you want to run az commands on)  
+
+- Create environments for stage, prod, dev, etc.. using the az cli; current scheme rg[client]-[appName]-[environment]
+  - > az group create --name rgCountryFried-DACHsampler-uat --location eastus
+  - > az group create --name rgCountryFried-DACHsampler-prod --location eastus
