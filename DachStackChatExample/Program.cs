@@ -11,7 +11,10 @@ using Microsoft.Azure.SignalR;
 using Azure.Storage.Blobs;
 using Azure.Storage.Queues;
 using Azure.Data.Tables;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+var environmentName = configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -19,22 +22,21 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null;});
+builder.Services.AddSignalR();
 
-string storageConnectionString = builder.Configuration.GetConnectionString("AzureStorage");
-
-//IOC azure middleware
-builder.Services.AddSingleton(new TableServiceClient(storageConnectionString));
-//builder.Services.AddSingleton(new BlobServiceClient(storageConnectionString));
-//builder.Services.AddSingleton(new QueueServiceClient(storageConnectionString));
-
-//SignalR service
-bool useAzureSignalR = builder.Configuration.GetValue<bool>("SignalR:UseAzure", defaultValue: false);
-if(useAzureSignalR)
+if (environmentName == "Development")
 {
-    builder.Services.AddSignalR().AddAzureSignalR(builder.Configuration["SignalR:AzureSignalRConnectionString"]);
+    builder.Services.AddSingleton(new BlobServiceClient("UseDevelopmentStorage=true"));
+    builder.Services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
 }
-else{
-    builder.Services.AddSignalR();
+else
+{
+    var storageConnectionString = configuration["StorageAccountConnectionString"];
+    builder.Services.AddSingleton(new BlobServiceClient(storageConnectionString));
+    builder.Services.AddSingleton(new TableServiceClient(storageConnectionString));
+
+    var signalRConnectionString = configuration["AzureSignalRConnectionString"];
+    builder.Services.AddSignalR().AddAzureSignalR(signalRConnectionString);
 }
 
 var app = builder.Build();
