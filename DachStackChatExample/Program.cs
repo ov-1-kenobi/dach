@@ -1,15 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
-using DachStackApp.api;
-using DachStackApp;
 using DachStackApp.Hubs;
-using System.Reflection.Metadata;
-using System.ComponentModel;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Azure.SignalR;
 using Azure.Storage.Blobs;
-using Azure.Storage.Queues;
 using Azure.Data.Tables;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,12 +13,12 @@ var environmentName = configuration["ASPNETCORE_ENVIRONMENT"] ?? "Development";
 //builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null;});
-builder.Services.AddSignalR();
 
 if (environmentName == "Development")
 {
     builder.Services.AddSingleton(new BlobServiceClient("UseDevelopmentStorage=true"));
     builder.Services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
+    builder.Services.AddSignalR();
 }
 else
 {

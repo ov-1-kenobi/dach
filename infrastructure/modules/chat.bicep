@@ -1,8 +1,8 @@
 param environment string
 param location string
 param appServicePlanId string
-param signalRConnectionString string
 param storageAccountConnectionString string
+param signalRConnectionString string
 
 resource chatApp 'Microsoft.Web/sites@2021-03-01' = {
   name: 'DACH-chat-${environment}'

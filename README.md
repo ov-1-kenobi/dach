@@ -106,3 +106,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Create environments for stage, prod, dev, etc.. using the az cli; current scheme rg[client]-[appName]-[environment]
   - > az group create --name rgCountryFried-DACHsampler-uat --location eastus
   - > az group create --name rgCountryFried-DACHsampler-prod --location eastus
+

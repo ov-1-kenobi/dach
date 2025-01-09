@@ -12,6 +12,7 @@ using System.Text.Json.Serialization;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.SignalR;
 using DachStackApp.Hubs;
+using Azure.Storage.Blobs;
 
 namespace DachStackApp.api
 {
@@ -54,26 +55,25 @@ namespace DachStackApp.api
     {
         private readonly IConfiguration _configuration;
         private readonly string _tableName;
-        private TableServiceClient _TableServiceClient;
+        private TableServiceClient _tableServiceClient;
         private IHubContext<ChatHub> _hubContext;
-        public ChatController(IHubContext<ChatHub> hubContext, IConfiguration configuration, string tableName = "devchatstorage")
+        public ChatController(IHubContext<ChatHub> hubContext, IConfiguration configuration, 
+        BlobServiceClient blobServiceClient, TableServiceClient tableServiceClient, 
+        string tableName = "devchatstorage")
         {
+            _tableServiceClient = tableServiceClient;
+            
             _configuration = configuration;
             _tableName = tableName;
-            _configuration["AzureAccountName"] = "devstoreaccount1";
-            _configuration["AzureAccountKey"] = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
             _hubContext = hubContext;
-            Console.WriteLine($@"{_configuration.ToString()}");
-            string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
-            _TableServiceClient = new TableServiceClient(storageConnectionString);
-            _TableServiceClient.CreateTableIfNotExists(_tableName);
+            _tableServiceClient.CreateTableIfNotExists(_tableName);
 
         }
         [HttpPost("send")]
         public async Task<IActionResult> SendMessage([FromForm] string user, [FromForm] string message, [FromForm] string room)
         {
             //write message to the table
-            TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
+            TableClient tableClient = _tableServiceClient.GetTableClient(_tableName);
             string entityId = Guid.NewGuid().ToString();
             MessageEntity messageEntity = new MessageEntity() {
                 PartitionKey = room,
@@ -93,7 +93,7 @@ namespace DachStackApp.api
             //user would come from principal info from auth/jwt
             //await get messages from table
             var retHTML = $"";
-            TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
+            TableClient tableClient = _tableServiceClient.GetTableClient(_tableName);
             var items = tableClient.Query<MessageEntity>();
             foreach (MessageEntity item in items.OrderBy(me => me.Timestamp))
             {

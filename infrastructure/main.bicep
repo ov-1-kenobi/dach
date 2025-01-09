@@ -38,7 +38,7 @@ module fileUploadModule './modules/fileUpload.bicep' = if (contains(projectNames
   params: {
     environment: environment
     location: location
-    functionAppServicePlanId: sharedModule.outputs.functionAppServicePlanId
+    appServicePlanId: sharedModule.outputs.appServicePlanId
     storageAccountConnectionString: sharedModule.outputs.storageAccountConnectionString
   }
 }

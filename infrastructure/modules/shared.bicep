@@ -5,19 +5,19 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: 'asp-${environment}'
   location: location
   sku: {
-    name: 'S1'
-    tier: 'Standard'
+    name: 'F1'
+    tier: 'Free'
   }
 }
 
-resource functionAppServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
-  name: 'func-asp-${environment}'
-  location: location
-  sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
-  }
-}
+// resource functionAppServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
+//   name: 'func-asp-${environment}'
+//   location: location
+//   sku: {
+//     name: 'Y1'
+//     tier: 'Dynamic'
+//   }
+// }
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: 'storage${uniqueString(resourceGroup().id, environment)}'
@@ -32,7 +32,7 @@ resource signalR 'Microsoft.SignalRService/SignalR@2022-02-01' = {
   name: 'signalr-${environment}'
   location: location
   sku: {
-    name: 'Standard_S1'
+    name: 'Free_F1' // Free tier SKU for SignalR
     capacity: 1
   }
   properties: {
@@ -51,7 +51,7 @@ var storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${acco
 
 
 output appServicePlanId string = appServicePlan.id
-output functionAppServicePlanId string = functionAppServicePlan.id
+//output functionAppServicePlanId string = functionAppServicePlan.id
 output storageAccountConnectionString string = storageConnectionString
 //output storageAccountConnectionString string = listKeys(storageAccount.id, '2021-04-01').keys[0].value
 output signalRConnectionString string = signalR.listKeys().primaryConnectionString

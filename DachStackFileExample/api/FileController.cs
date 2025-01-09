@@ -18,16 +18,12 @@ namespace DachStackApp.api
         private readonly IConfiguration _configuration;
         private readonly BlobServiceClient _blobServiceClient;
         private readonly string _containerName;
-        public UploadController(IConfiguration configuration, string containerName = "dach-file-controllerf3fef90e-a7c9-4242-b679-97517997e66d")
+        public UploadController(BlobServiceClient blobServiceClient, IConfiguration configuration, string containerName = "dach-file-controller-blobs")
         {
             _configuration = configuration;
             _containerName = containerName;
-            _configuration["AzureAccountName"] = "devstoreaccount1";
-            _configuration["AzureAccountKey"] = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-            Console.WriteLine($@"{_configuration.ToString()}");
-            string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;";
-            _blobServiceClient = new BlobServiceClient(storageConnectionString);
-            var _blobContainerClient = new BlobContainerClient(storageConnectionString, _containerName);
+            _blobServiceClient = blobServiceClient;
+            var _blobContainerClient = blobServiceClient.GetBlobContainerClient(_containerName);
             
             Console.WriteLine($"Account Name: {_blobServiceClient.AccountName}");
             try

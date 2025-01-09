@@ -49,25 +49,22 @@ namespace DachStackApp.api
         public const string APARTITIONKEY = "e7c6ce3d-091a-4d60-9901-c1257cc3146b";
         private static List<ToDoItem> _items = new List<ToDoItem>();
         private readonly IConfiguration _configuration;
-        private readonly TableServiceClient _TableServiceClient;
+        private readonly TableServiceClient _tableServiceClient;
         private readonly string _tableName;
 
-    public ToDoController(IConfiguration configuration, string tableName = "devtodostorage")
+    public ToDoController(TableServiceClient tableServiceClient, IConfiguration configuration, string tableName = "devtodostorage")
     {
         _configuration = configuration;
         _tableName = tableName;
 
-        string storageConnectionString = @"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
-        _TableServiceClient = new TableServiceClient(storageConnectionString);
-        _TableServiceClient.CreateTableIfNotExists(_tableName);
-
+        _tableServiceClient = tableServiceClient;
+        _tableServiceClient.CreateTableIfNotExists(_tableName);
     }
-
         [HttpGet]
         public IActionResult GetItems() 
         { 
             var retHTML = $"";
-            TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
+            TableClient tableClient = _tableServiceClient.GetTableClient(_tableName);
             var items = tableClient.Query<StorageEntity>();
 
             var todos = items.Select(t => t.getObjectValue() as ToDoItem).ToList();
@@ -82,7 +79,7 @@ namespace DachStackApp.api
         [HttpPost]
         public IActionResult AddItem([FromForm]ToDoItem item)
         {
-            TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
+            TableClient tableClient = _tableServiceClient.GetTableClient(_tableName);
             //TODO:KO; tie in principal info here for 'logging' changers
             string entityId = Guid.NewGuid().ToString();
             StorageEntity storageEntity = new StorageEntity() {
@@ -114,8 +111,8 @@ namespace DachStackApp.api
         [HttpDelete("{id}")]
         public IActionResult DeleteItem(string id)
         {
-            _TableServiceClient.CreateTableIfNotExists(_tableName);
-            TableClient tableClient = _TableServiceClient.GetTableClient(_tableName);
+            _tableServiceClient.CreateTableIfNotExists(_tableName);
+            TableClient tableClient = _tableServiceClient.GetTableClient(_tableName);
             StorageEntity cadaver = tableClient.GetEntity<StorageEntity>(APARTITIONKEY, id);
             if (cadaver != null)
             {

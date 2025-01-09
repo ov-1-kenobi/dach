@@ -1,14 +1,13 @@
 param environment string
 param location string
-param functionAppServicePlanId string
+param appServicePlanId string
 param storageAccountConnectionString string
 
-resource fileUploadFunction 'Microsoft.Web/sites@2021-03-01' = {
+resource fileUploadApp 'Microsoft.Web/sites@2021-03-01' = {
   name: 'DACH-file-upload-${environment}'
   location: location
-  kind: 'functionapp'
   properties: {
-    serverFarmId: functionAppServicePlanId
+    serverFarmId: appServicePlanId
     siteConfig: {
       appSettings: [
         {
@@ -28,4 +27,4 @@ resource fileUploadFunction 'Microsoft.Web/sites@2021-03-01' = {
   }
 }
 
-output fileUploadUrl string = 'https://${fileUploadFunction.properties.defaultHostName}'
+output fileUploadUrl string = 'https://${fileUploadApp.properties.defaultHostName}'
