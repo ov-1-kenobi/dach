@@ -28,6 +28,36 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   kind: 'StorageV2'
 }
 
+resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2021-04-01' = {
+  parent: storageAccount
+  name: 'default'
+  properties: {
+    cors: {
+      corsRules: [
+        {
+          allowedOrigins: [
+            'https://dach-file-upload-uat.azurewebsites.net'
+          ]
+          allowedMethods: [
+            'GET'
+            'PUT'
+            'POST'
+            'OPTIONS'
+            'HEAD'
+          ]
+          allowedHeaders: [
+            '*'
+          ]
+          exposedHeaders: [
+            '*'
+          ]
+          maxAgeInSeconds: 3600
+        }
+      ]
+    }
+  }
+}
+
 resource signalR 'Microsoft.SignalRService/SignalR@2022-02-01' = {
   name: 'signalr-${environment}'
   location: location
