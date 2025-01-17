@@ -5,22 +5,25 @@
             "name": "C#: DachStackFileExample [http]",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}\\DachStackFileExample\\DachStackFileExample.csproj",
-
+            "projectPath": "${workspaceFolder}\\DachStackFileExample\\DachStackFileExample.csproj"
         },
         {
             "name": "C#: DachStackTodoExample [http]",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}\\DachStackTodoExample\\DachStackTodoExample.csproj",
-
+            "projectPath": "${workspaceFolder}\\DachStackTodoExample\\DachStackTodoExample.csproj"
         },
         {
             "name": "C#: DachStackChatExample [http]",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}\\DachStackChatExample\\DachStackChatExample.csproj",
-
+            "projectPath": "${workspaceFolder}\\DachStackChatExample\\DachStackChatExample.csproj"
         },
+        {
+            "name": "Attach to .NET Functions",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:azureFunctions.pickProcess}"
+        }
     ]
 }

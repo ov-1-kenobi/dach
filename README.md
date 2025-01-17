@@ -71,6 +71,7 @@ Ensure you have the following installed:
 ### cli tools
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 libman
+func; azure installed tool for managing application functions and running them locally
 
 ### Bicep Deployment
 

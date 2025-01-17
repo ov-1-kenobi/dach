@@ -71,6 +71,23 @@
   counter = 0;
   request = 0;
 
+  if (!("Notification" in window)) {
+    alert("This browser does not support notifications");
+  } else {
+  if (Notification.permission === "granted") {
+    //great
+  } else if (Notification.permission !== "denied") {
+    //get them
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted"){
+        //yay good job
+      }
+    });
+  }
+
+  }
+
+
   document.addEventListener('DOMContentLoaded', function() {
     console.log("load username")
     loadUsername();
@@ -101,15 +118,24 @@
       });
       
       connection.on("ReceiveMessage", function (user, message) {
+        console.log("receive message");
         var messageDiv = document.getElementById("messagesList");
         var newMessage = document.createElement("li");
         let _user = document.getElementById('user').value;
         newMessage.classList.add("chat", "mb-2");
-        if (user === _user)
+        if (user === _user) {
           newMessage.classList.add("chat-end");
-        else
+        }
+        else {
           newMessage.classList.add("chat-start");
-        
+          if (Notification.permission === "granted") {
+            new Notification(`${user} sent a new message: ${message}`);
+          }
+          else {
+            console.log("notifications not granted");
+            alert(`${user} sent a new message: ${message}`);
+          }
+        }
         var chatBubble = document.createElement("div");
         chatBubble.classList.add("chat-bubble");
         chatBubble.innerHTML = "<strong>" + user + ":</strong> " + message;
