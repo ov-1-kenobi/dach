@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Azure;
 
 namespace DachStackApp.api
 {
@@ -102,13 +103,64 @@ namespace DachStackApp.api
         [HttpGet("get-file")]
         public IActionResult GetFile(string filename)
         {
+            string contentType = Path.GetExtension(filename);
             var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
 
             var blobClient = containerClient.GetBlobClient(filename);
             var retVal = blobClient.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.UtcNow.AddMinutes(15));
-            var retHTML = $"""
-                <img class='' src='{retVal.ToString()}' alt='No Image'/>
-            """;
+            var retHTML = string.Empty;
+            switch (contentType)
+            {
+                case ".jpeg":
+                case ".jpg":
+                case ".png":
+                case ".gif":
+                    retHTML = $"""
+                        <img class='w-full h-auto max-w-full' src='{retVal.ToString()}' alt='No Image'/>
+                    """;
+                    break;
+                case ".mp4":
+                case ".webm":
+                case ".ogg":
+                    retHTML = $"""
+                    <div class="w-full h-full pt-2 pb-2 pr-2 pl-0">
+                      <video class="w-full h-full" controls>
+                        <source src="{retVal.ToString()}" type="video/{contentType.TrimStart('.')}">
+                        Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    """;
+                    break;
+                case ".pdf":
+                case ".msword":
+                    retHTML = $"""
+                        <img class='' src='{retVal.ToString()}' alt='No Image'/>
+                    """;
+                    break;
+                case ".json":
+                    retHTML = $"""
+                        <img class='' src='{retVal.ToString()}' alt='No Image'/>
+                    """;
+                    break;
+                case ".xml":
+                    retHTML = $"""
+                        <img class='' src='{retVal.ToString()}' alt='No Image'/>
+                    """;
+                    break;
+                case ".plain":
+                    retHTML = $"""
+                        <img class='' src='{retVal.ToString()}' alt='No Image'/>
+                    """;
+                    break;
+                // case "multipart/form-data":
+                //     retHTML = $"""
+                //         <img class='' src='{retVal.ToString()}' alt='No Image'/>
+                //     """;
+                //     break;
+                default:
+                    return BadRequest("Unsupported content type");
+            }
+
             return Ok(retHTML);
         }
 
@@ -221,8 +273,8 @@ namespace DachStackApp.api
             // }
             var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
             var blobClient = containerClient.GetBlobClient(identifier);
-            using MemoryStream memoryStream = new MemoryStream();
-            var inputData = blobClient.DownloadStreaming().Value.Content;// (identifier);//System.IO.File.ReadAllBytes(imagePath);
+            
+            MemoryStream inputData = blobClient.DownloadStreaming().Value.Content as MemoryStream??new MemoryStream();// (identifier);//System.IO.File.ReadAllBytes(imagePath);
             using var originalBitmap = SKBitmap.Decode(inputData);
             if (originalBitmap == null)
             {
@@ -399,9 +451,10 @@ namespace DachStackApp.api
 
                 using var outStream = new MemoryStream();
                 using var skImage = SKImage.FromBitmap(sizedBitmap);
-                using var data = skImage.Encode(skFormat, 90);
+                using var data = skImage.Encode(skFormat, 100);
                 data.SaveTo(outStream);
-                return File(outStream.ToArray(), mime);
+                inputData.Seek(0,0);
+                return File(inputData.ToArray(), mime);
             }
         }
     }

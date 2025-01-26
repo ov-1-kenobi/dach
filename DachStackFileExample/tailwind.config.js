@@ -18,6 +18,7 @@ module.exports = {
       'rounded-full',
       'text-center',
       'max-h-24',
+      'max-w-full',
       'card-body',
       'card',
       'card-title',
@@ -43,6 +44,10 @@ module.exports = {
       'justify-end',
       'truncate',
       'object-cover',
+      'pt-2',
+      'pb-2',
+      'pr-2',
+      'pl-0'
     ],
   }
   
