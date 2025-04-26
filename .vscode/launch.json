@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C#: DachStackFileExample [http]",
+            "name": "C#: DachStackFileExample [fileApp]",
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}\\DachStackFileExample\\DachStackFileExample.csproj"

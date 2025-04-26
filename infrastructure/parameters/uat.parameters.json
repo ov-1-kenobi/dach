@@ -4,7 +4,6 @@
     "parameters": {
       "environment": { "value": "uat" },
       "projectNames": { "value": ["chat", "file-upload", "todo"] },
-      "location": { "value": "eastus" }
-    }
+      "location": { "value": "eastus" }    }
   }
   

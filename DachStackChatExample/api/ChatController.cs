@@ -62,12 +62,10 @@ namespace DachStackApp.api
         string tableName = "devchatstorage")
         {
             _tableServiceClient = tableServiceClient;
-            
             _configuration = configuration;
             _tableName = tableName;
             _hubContext = hubContext;
             _tableServiceClient.CreateTableIfNotExists(_tableName);
-
         }
         [HttpPost("send")]
         public async Task<IActionResult> SendMessage([FromForm] string user, [FromForm] string message, [FromForm] string room)
