@@ -18,12 +18,12 @@ namespace DachStackApp.api
 {
     [ApiController]
     [Route("api/file")]
-    public class UploadController : ControllerBase
+    public class FileController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly BlobServiceClient _blobServiceClient;
         private readonly string _containerName;
-        public UploadController(BlobServiceClient blobServiceClient, IConfiguration configuration, string containerName = "dach-file-controller-blobs")
+        public FileController(BlobServiceClient blobServiceClient, IConfiguration configuration, string containerName = "dach-file-controller-blobs")
         {
             _configuration = configuration;
             _containerName = containerName;
@@ -45,80 +45,31 @@ namespace DachStackApp.api
             }
             Console.WriteLine($"Using Container: {_containerName}");
         }
-        [HttpGet("auth-status")]
-        public IActionResult AuthStatus()
+        private (string TenantKey, string UserKey) GetShardKeys()
         {
-            var RetHTML = string.Empty;
-            if (User?.Identity?.IsAuthenticated??false)
-            {
-                // Already signed in, just go back to your main page (e.g. /)
-                RetHTML += $"""
-                    <div>
-                        User: {User.Identity.Name} is authenticated.
-                    </div>
-                    <div>
-                        Logout: <a href="/api/file/logout">Logout</a>
-                    </div>
-                """;
-                //return new OkResult();// RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                // Not authenticated, so force a full OIDC challenge (redirect to B2C).
-                RetHTML += $"""
-                <a href="api/file/login" hx-target="#auth-status">Sign In</a>
-                """;
-            } 
-            return Ok(RetHTML);
+            // tenant (directory) Guid
+            var tenant = User.FindFirst("utid")?.Value            // MSAL short claim
+                    ?? User.FindFirst("tid") ?.Value            // standard claim if you enabled it
+                    ?? "global";                                // single-tenant fallback
+
+            // user Guid
+            var user   = User.FindFirst("uid") ?.Value            // MSAL short claim
+                    ?? User.FindFirst("oid") ?.Value
+                    ?? User.FindFirst("sub") ?.Value
+                    ?? "anonymous";
+
+            return (tenant, user);
         }
-        [HttpGet("logout")]
-        public IActionResult Logout()
-        {
-            if (User?.Identity?.IsAuthenticated??false)
-            {
-                var RetHTML = string.Empty;
-                var bob = SignOut();
-                var callBack = Url.Content("~/");
-                return SignOut(new AuthenticationProperties { RedirectUri = callBack }, Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.AuthenticationScheme, CookieAuthenticationDefaults.AuthenticationScheme);
-            //     return SignOut(
-            // new AuthenticationProperties
-            // {
-            //     RedirectUri = "https://localhost:7140/signin-oidc" // Redirect to the home page after logout
-            // },
-            // Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.AuthenticationScheme
-            //     );
-            }
-            else
-            {
-                // Not authenticated, so just redirect to the home page or show a message
-                return RedirectToAction("auth-status", "file");
-            }
-        }
-        [HttpGet("login")]
-        public IActionResult Login()
-        {
-            if (User?.Identity?.IsAuthenticated??false)
-            {
-                // Already signed in, just go back to your main page (e.g. /)
-                return Redirect("/");
-                //return new OkResult();// RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                // Not authenticated, so force a full OIDC challenge (redirect to B2C).
-                return Challenge(
-                    new AuthenticationProperties { RedirectUri = "/" }, 
-                    Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectDefaults.AuthenticationScheme
-                );
-            } 
-        }
+ 
         [Authorize]
         [HttpGet("get-files")]
         public IActionResult GetFiles()
         {
                 var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-                var files = containerClient.GetBlobs();
-                var user = User?.Identity;
+                //var user = User?.Identity;
+                var (tenant, user) = GetShardKeys();
+                string prefix = $"{tenant}/{user}/"; 
+                var files = containerClient.GetBlobs(prefix: prefix);
                 var retHTML = $"";
                 foreach(var item in files)
                 {
@@ -256,9 +207,13 @@ namespace DachStackApp.api
 
         [HttpGet("get-presigned-url")]
         public IActionResult GetPresignedUrl(string filename)
-        {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-            var blobClient = containerClient.GetBlobClient(filename);
+        { 
+            var (tenant, user) = GetShardKeys();                 // NEW
+            var containerClient = _blobServiceClient
+                            .GetBlobContainerClient(_containerName);
+
+            
+            var blobClient = containerClient.GetBlobClient($"{tenant}/{user}/{filename}");
             try
             {
                 var sasUri = blobClient.GenerateSasUri(BlobSasPermissions.Write, DateTimeOffset.UtcNow.AddMinutes(15));
@@ -275,8 +230,9 @@ namespace DachStackApp.api
         [HttpGet("get-presigned-url-for-block")]
         public IActionResult GetPresignedUrlForBlock(string filename, string blockid)
         {
+            var (tenant, user) = GetShardKeys();     
             var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-            var blobClient = containerClient.GetBlobClient(filename);
+            var blobClient = containerClient.GetBlobClient($"{tenant}/{user}/{filename}");
 
             var sasBuilder = new BlobSasBuilder
             {
@@ -304,8 +260,9 @@ namespace DachStackApp.api
         [HttpGet("get-commit-url")]
         public IActionResult GetCommitUrl(string filename)
         {
+            var (tenant, user) = GetShardKeys();  
             var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-            var blobClient = containerClient.GetBlobClient(filename);
+            var blobClient = containerClient.GetBlobClient($"{tenant}/{user}/{filename}");
 
             var sasBuilder = new BlobSasBuilder
             {
