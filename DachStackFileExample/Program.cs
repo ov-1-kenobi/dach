@@ -18,7 +18,7 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         options.Events ??= new OpenIdConnectEvents();
         options.Events.OnRedirectToIdentityProvider = context =>
         {
-            if (context.Request.Path.StartsWithSegments("/api/file"))//TODO:KO; need to move auth and login pieces to auth controller so this works out.. either errors work OR 'sign in' currently
+            if (context.Request.Path.StartsWithSegments("/api/file"))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 context.HandleResponse();

@@ -86,9 +86,9 @@
     }
   });
   document.addEventListener('htmx:responseError', function(evt) {
-    alert('Authentication failed. Please log in to proceed.');
+    alert('Unauthorized request failed. Please log in to proceed.');
     if (evt.detail.xhr.status === 401 || evt.detail.xhr.status === 403 || evt.detail.xhr.status === 302) {
-      document.querySelector('#error-message').innerHTML = '<div class="alert alert-error shadow-lg"><div><span>Authentication failed. Please log in to proceed.</span></div></div>';
+      document.querySelector('#error-message').innerHTML = '<div class="alert alert-error shadow-lg"><div><span>Unauthorized request failed. Please log in to proceed.</span></div></div>';
     }
   })
 </script>
