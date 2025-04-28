@@ -41,3 +41,4 @@ Azurite/__azurite_db_blob_extent__.json
 /DachStackFileExample/appsettings.Development.json
 appsettings.Development.json
 DachStackFileExample/appsettings.Development.json
+DachStackChatExample/appsettings.Development.json
